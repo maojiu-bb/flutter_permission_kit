@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
+import 'package:flutter_permission_kit/core/flutter_permission_kit_config.dart';
+import 'package:flutter_permission_kit/core/permission.dart';
+import 'package:flutter_permission_kit/enums/display_type.dart';
+import 'package:flutter_permission_kit/enums/permission_type.dart';
 import 'package:flutter_permission_kit/flutter_permission_kit.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -16,34 +19,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _flutterPermissionKitPlugin = FlutterPermissionKit();
-
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _flutterPermissionKitPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      final res = await FlutterPermissionKit.init(
+        config: FlutterPermissionKitConfig(
+          displayType: DisplayType.alert,
+          displayTitle: 'Permission Request',
+          displayHeaderDescription:
+              'We need your location to show you the best results',
+          displayBottomDescription:
+              'We need your location to show you the best results',
+          primaryColor: Colors.blue,
+          permissions: [
+            Permission(
+              name: 'photos',
+              description: 'Photos permission',
+              type: PermissionType.photos,
+            ),
+          ],
+        ),
+      );
+      debugPrint("[FlutterPermissionKit.init: $res]");
     });
   }
 
@@ -51,12 +50,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+        appBar: AppBar(title: const Text('Plugin example app')),
+        body: Center(child: Text('Running on: ios\n')),
       ),
     );
   }
