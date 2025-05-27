@@ -31,6 +31,7 @@ import UIKit
 ///        ↓
 /// iOS Permission APIs
 /// ```
+@available(iOS 15.0, *)
 public class FlutterPermissionKitPlugin: NSObject, FlutterPlugin {
     
     /// Registers the plugin with Flutter's plugin system

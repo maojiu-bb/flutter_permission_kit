@@ -62,15 +62,6 @@ struct FlutterPermissionKitConfig {
     /// Description text shown at the bottom of the permission list
     let displayBottomDescription: String
     
-    /// Primary color used throughout the permission request UI
-    let primaryColor: String
-    
-    /// Whether to automatically dismiss the dialog after handling permissions
-    let autoDismiss: Bool
-    
-    /// Whether to automatically check permission status before showing dialog
-    let autoCheck: Bool
-    
     /// Initializes a FlutterPermissionKitConfig from a dictionary
     ///
     /// - Parameter dict: Dictionary containing configuration data from Flutter
@@ -88,10 +79,8 @@ struct FlutterPermissionKitConfig {
               let displayType = DisplayType(from: displayTypeString),
               let displayTitle = dict["displayTitle"] as? String,
               let displayHeaderDescription = dict["displayHeaderDescription"] as? String,
-              let displayBottomDescription = dict["displayBottomDescription"] as? String,
-              let primaryColor = dict["primaryColor"] as? String,
-              let autoDismiss = dict["autoDismiss"] as? Bool,
-              let autoCheck = dict["autoCheck"] as? Bool else {
+              let displayBottomDescription = dict["displayBottomDescription"] as? String
+        else {
             return nil
         }
         
@@ -100,8 +89,5 @@ struct FlutterPermissionKitConfig {
         self.displayTitle = displayTitle
         self.displayHeaderDescription = displayHeaderDescription
         self.displayBottomDescription = displayBottomDescription
-        self.primaryColor = primaryColor
-        self.autoDismiss = autoDismiss
-        self.autoCheck = autoCheck
     }
 }

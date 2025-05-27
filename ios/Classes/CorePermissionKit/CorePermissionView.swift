@@ -8,6 +8,7 @@
 import SwiftUI
 
 
+@available(iOS 15.0, *)
 struct CorePermissionView<Content: View>: View {
     let displayTitle: String
     let displayHeaderDescription: String
@@ -48,7 +49,7 @@ struct CorePermissionView<Content: View>: View {
                     cornerRadius: 20,
                     style: .continuous
                 )
-                .fill(Color.white)
+                .fill(.background)
             )
             .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
             .padding(.vertical)
@@ -57,6 +58,14 @@ struct CorePermissionView<Content: View>: View {
                 .font(.callout)
                 .foregroundStyle(.secondary)
         }
+        .padding(30)
+        .background(
+            RoundedRectangle(
+                cornerRadius: 30,
+                style: .continuous
+            )
+            .fill(Color(.secondarySystemBackground))
+        )
         .padding()
     }
 }

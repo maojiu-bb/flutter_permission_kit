@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_permission_kit/core/permission.dart';
 import 'package:flutter_permission_kit/enums/display_type.dart';
 
@@ -60,28 +59,6 @@ class FlutterPermissionKitConfig {
   /// data usage. Defaults to an empty string.
   final String displayBottomDescription;
 
-  /// Primary color used throughout the permission request UI
-  ///
-  /// This color is used for buttons, highlights, and other accent elements
-  /// in the permission request interface. Should match your app's branding.
-  /// Defaults to iOS blue (#007AFF).
-  final Color primaryColor;
-
-  /// Whether to automatically dismiss the dialog after all permissions are handled
-  ///
-  /// When true, the permission dialog will automatically close once all
-  /// permissions have been granted or denied. When false, the dialog
-  /// remains open for manual dismissal. Defaults to true.
-  final bool autoDismiss;
-
-  /// Whether to automatically check permission status before showing the dialog
-  ///
-  /// When true, the system will check if permissions are already granted
-  /// before showing the request dialog. Already granted permissions will
-  /// be filtered out. When false, all permissions will be shown regardless
-  /// of current status. Defaults to true.
-  final bool autoCheck;
-
   /// Creates a new FlutterPermissionKitConfig instance
   ///
   /// [permissions] is required and must contain at least one permission.
@@ -99,9 +76,6 @@ class FlutterPermissionKitConfig {
         'To provide key features and a seamless experience, we require access to certain permissions.',
     this.displayBottomDescription =
         'Permissions can be managed later in Settings if you change your mind.',
-    this.primaryColor = const Color(0xFF007AFF),
-    this.autoDismiss = true,
-    this.autoCheck = true,
   });
 
   /// Converts this FlutterPermissionKitConfig instance to a JSON-serializable Map
@@ -141,9 +115,6 @@ class FlutterPermissionKitConfig {
   ///   "displayTitle": "App Permissions",
   ///   "displayHeaderDescription": "We need these permissions...",
   ///   "displayBottomDescription": "You can change these later...",
-  ///   "primaryColor": "Color(0xff007aff)",
-  ///   "autoDismiss": true,
-  ///   "autoCheck": true
   /// }
   /// ```
   ///
@@ -155,8 +126,5 @@ class FlutterPermissionKitConfig {
     'displayTitle': displayTitle,
     'displayHeaderDescription': displayHeaderDescription,
     'displayBottomDescription': displayBottomDescription,
-    'primaryColor': primaryColor.toARGB32().toRadixString(16),
-    'autoDismiss': autoDismiss,
-    'autoCheck': autoCheck,
   };
 }
