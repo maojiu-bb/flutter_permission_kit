@@ -32,7 +32,6 @@ class _MyAppState extends State<MyApp> {
               'We need your location to show you the best results',
           displayBottomDescription:
               'We need your location to show you the best results',
-          primaryColor: Colors.blue,
           permissions: [
             Permission(
               name: 'photos',
