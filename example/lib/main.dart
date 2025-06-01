@@ -29,14 +29,19 @@ class _MyAppState extends State<MyApp> {
           displayType: DisplayType.alert,
           displayTitle: 'Permission Request',
           displayHeaderDescription:
-              'We need your location to show you the best results',
+              'In order to use this app, we need to access your photos and camera',
           displayBottomDescription:
-              'We need your location to show you the best results',
+              'We need your photos and camera to show you the best results',
           permissions: [
             Permission(
               name: 'Photo Library',
               description: 'Access to your photos',
               type: PermissionType.photos,
+            ),
+            Permission(
+              name: 'Camera',
+              description: 'Access to your camera',
+              type: PermissionType.camera,
             ),
           ],
         ),

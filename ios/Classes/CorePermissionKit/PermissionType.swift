@@ -28,7 +28,7 @@ import Foundation
 /// let cameraType = PermissionType.camera
 /// let photosType = PermissionType(from: "photos")
 /// ```
-enum PermissionType: String {
+enum PermissionType: String, CaseIterable {
     /// Camera access permission
     ///
     /// Allows the app to access the device's camera for taking photos,
@@ -45,6 +45,12 @@ enum PermissionType: String {
     /// - QR/barcode scanning
     /// - Augmented reality features
     /// - Video calling functionality
+    ///
+    /// Example Info.plist entry:
+    /// ```xml
+    /// <key>NSCameraUsageDescription</key>
+    /// <string>This app needs camera access to take photos and scan QR codes.</string>
+    /// ```
     case camera
     
     /// Photo library access permission
@@ -67,6 +73,12 @@ enum PermissionType: String {
     ///
     /// Note: iOS 14+ introduced limited photo access, allowing users to
     /// grant access to only selected photos rather than the entire library.
+    ///
+    /// Example Info.plist entry:
+    /// ```xml
+    /// <key>NSPhotoLibraryUsageDescription</key>
+    /// <string>This app needs photo library access to select and share images.</string>
+    /// ```
     case photos
     
     // Additional permission types can be added here as needed
