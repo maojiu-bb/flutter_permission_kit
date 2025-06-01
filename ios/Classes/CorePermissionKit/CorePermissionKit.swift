@@ -12,9 +12,17 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 class CorePermissionKit {
+    
     static let share = CorePermissionKit()
     
     private var config: FlutterPermissionKitConfig?
+    
+    private var photosPermissionKit = PhotosPermissionKit()
+    
+    private var hostingController: UIHostingController<CorePermissionView<AnyView>>?
+    
+    // Store the presenting view controller to properly dismiss
+    private var presentingViewController: UIViewController?
     
     func initPermissionKit(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let args = call.arguments as? [String: Any],
@@ -24,6 +32,12 @@ class CorePermissionKit {
         }
         
         self.config = config
+        
+        // check permission status
+        if !self.checkPermissionsStatus(permissions: config.permissions).values.contains(.notDetermined) {
+            result(true)
+            return
+        }
         
         let showResult = showCorePermissionView()
         
@@ -38,11 +52,11 @@ class CorePermissionKit {
             displayHeaderDescription: config.displayHeaderDescription,
             displayBottomDescription: config.displayBottomDescription
         ) {
-//            TODO: Add Permission Card Here
-            Text("Card")
+            AnyView(self.renderPermissionCards(permissions: config.permissions))
         }
         
         let hostingController = UIHostingController(rootView: corePermissionView)
+        self.hostingController = hostingController
         
         switch(config.displayType) {
         case .modal:
@@ -56,11 +70,64 @@ class CorePermissionKit {
         hostingController.isModalInPresentation = true
         
         if let topViewController = topMostViewController() {
+            self.presentingViewController = topViewController
             topViewController.present(hostingController, animated: true)
             return true
         }
         
         return false
+    }
+    
+    @ViewBuilder
+    func renderPermissionCards(permissions: [PermissionItem]) -> some View {
+        ForEach(permissions, id: \.type) { item in
+            if item.type == .photos {
+                PhotosPermissionCard(
+                    title: item.name,
+                    description: item.description,
+                    onPermissionsCompleted: {
+                        self.handlePermissionsCompleted()
+                    }
+                )
+            }
+        }
+    }
+    
+    // Handle when all permissions are completed
+    private func handlePermissionsCompleted() {
+        // Allow manual dismissal first
+        self.hostingController?.isModalInPresentation = false
+        
+        // Wait a bit for UI to update, then auto-dismiss
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.dismissModal()
+        }
+    }
+    
+    // Method to dismiss the modal
+    private func dismissModal() {
+        if let hostingController = self.hostingController {
+            hostingController.dismiss(animated: true) {
+                // Clean up references after dismissal
+                self.hostingController = nil
+                self.presentingViewController = nil
+            }
+        }
+    }
+    
+    func checkPermissionsStatus(permissions: [PermissionItem]? = nil) -> [PermissionType: AuthorizationStatus] {
+        let targetPermissions = permissions ?? config?.permissions ?? []
+        
+        var permissionsStatus: [PermissionType: AuthorizationStatus] = [:]
+        
+        targetPermissions.forEach { item in
+            if item.type == .photos {
+                permissionsStatus[.photos] = photosPermissionKit.permissionStatus
+            }
+            // TODO: Add more permission cards
+        }
+        
+        return permissionsStatus
     }
     
     func topMostViewController(from root: UIViewController? = UIApplication.shared.connectedScenes

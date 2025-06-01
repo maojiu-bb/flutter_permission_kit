@@ -34,8 +34,8 @@ class _MyAppState extends State<MyApp> {
               'We need your location to show you the best results',
           permissions: [
             Permission(
-              name: 'photos',
-              description: 'Photos permission',
+              name: 'Photo Library',
+              description: 'Access to your photos',
               type: PermissionType.photos,
             ),
           ],

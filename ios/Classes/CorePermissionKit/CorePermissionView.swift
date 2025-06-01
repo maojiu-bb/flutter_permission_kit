@@ -42,7 +42,7 @@ struct CorePermissionView<Content: View>: View {
             VStack {
                 content()
             }
-            .padding()
+            .padding(10)
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(
@@ -58,7 +58,7 @@ struct CorePermissionView<Content: View>: View {
                 .font(.callout)
                 .foregroundStyle(.secondary)
         }
-        .padding(30)
+        .padding(20)
         .background(
             RoundedRectangle(
                 cornerRadius: 30,
