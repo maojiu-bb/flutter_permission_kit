@@ -78,6 +78,11 @@ class _MyAppState extends State<MyApp> {
               description: 'Access to your tracking',
               type: PermissionType.tracking,
             ),
+            Permission(
+              name: 'Reminder',
+              description: 'Access to your reminder',
+              type: PermissionType.reminder,
+            ),
           ],
         ),
       );

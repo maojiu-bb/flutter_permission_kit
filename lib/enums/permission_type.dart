@@ -176,6 +176,14 @@ enum PermissionType {
   ///
   tracking,
 
+  /// Reminder access permission for reading and writing reminders
+  ///
+  /// This permission allows the app to read and write reminders,
+  /// including creating, modifying, and deleting reminders. Required
+  /// for reminder and notification features.
+  ///
+  reminder,
+
   // Additional permission types can be added here as needed
   // Examples: reminders, health, motion, bluetooth, faceID, etc.
   // When adding new types, ensure proper iOS documentation and Info.plist mappings

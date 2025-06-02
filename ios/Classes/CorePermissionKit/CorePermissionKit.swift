@@ -160,6 +160,11 @@ class CorePermissionKit {
         let trackingKit = TrackingPermissionKit()
         PermissionKitManager.shared.registerKit(trackingKit)
         
+        // Register reminder permission kit for reminder access
+        let reminderKit = ReminderPermissionKit()
+        PermissionKitManager.shared.registerKit(reminderKit)
+
+        
         // TODO: Register more permission kit
     }
     
