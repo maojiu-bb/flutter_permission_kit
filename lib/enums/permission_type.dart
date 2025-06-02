@@ -42,6 +42,10 @@ enum PermissionType {
   /// - Android: android.permission.READ_EXTERNAL_STORAGE
   photos,
 
+  microphone,
+
+  speech,
+
   // Additional permission types can be added here as needed
   // Examples: location, microphone, contacts, calendar, etc.
   // ...

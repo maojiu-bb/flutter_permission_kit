@@ -132,6 +132,9 @@ class CorePermissionKit {
         let cameraKit = CameraPermissionKit()
         PermissionKitManager.shared.registerKit(cameraKit)
         
+        let microphoneKit = MicrophonePermissionKit()
+        PermissionKitManager.shared.registerKit(microphoneKit)
+        
         // TODO: Register more permission kit
     }
     

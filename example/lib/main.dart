@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
           displayType: DisplayType.alert,
           displayTitle: 'Permission Request',
           displayHeaderDescription:
-              'In order to use this app, we need to access your photos and camera',
+              'In order to use this app, we need to access your permissions',
           displayBottomDescription:
-              'We need your photos and camera to show you the best results',
+              'We need your permissions to show you the best results',
           permissions: [
             Permission(
               name: 'Photo Library',
@@ -42,6 +42,11 @@ class _MyAppState extends State<MyApp> {
               name: 'Camera',
               description: 'Access to your camera',
               type: PermissionType.camera,
+            ),
+            Permission(
+              name: 'Microphone',
+              description: 'Access to your microphone',
+              type: PermissionType.microphone,
             ),
           ],
         ),
