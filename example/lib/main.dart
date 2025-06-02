@@ -48,6 +48,11 @@ class _MyAppState extends State<MyApp> {
               description: 'Access to your microphone',
               type: PermissionType.microphone,
             ),
+            Permission(
+              name: 'Speech',
+              description: 'Access to your speech',
+              type: PermissionType.speech,
+            ),
           ],
         ),
       );

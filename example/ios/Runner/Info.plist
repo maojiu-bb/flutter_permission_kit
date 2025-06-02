@@ -53,5 +53,7 @@
 	<string>We need access to your camera to take photos</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need access to your microphone to record your voice</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>We need access to your speech to transcribe your voice</string>
 </dict>
 </plist>
