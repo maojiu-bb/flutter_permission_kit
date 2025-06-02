@@ -9,14 +9,19 @@ import Foundation
 import SwiftUI
 import AVFoundation
 
+/// Microphone permission kit for managing audio recording access
+/// Handles microphone permission requests and status tracking using AVFoundation
 @available(iOS 15.0, *)
 class MicrophonePermissionKit: ObservableObject, PermissionKitProtocol {
+    /// Current microphone authorization status from AVFoundation
     @Published var status: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .audio)
     
+    /// Returns the permission type for this kit
     var permissionType: PermissionType {
         return .microphone
     }
     
+    /// Requests microphone access permission from the user
     func requestPermission() {
         AVCaptureDevice.requestAccess(for: .audio) { granted in
             DispatchQueue.main.async {
@@ -25,6 +30,7 @@ class MicrophonePermissionKit: ObservableObject, PermissionKitProtocol {
         }
     }
     
+    /// Converts AVFoundation authorization status to common AuthorizationStatus
     var permissionStatus: AuthorizationStatus {
         switch status {
         case .authorized:
@@ -39,6 +45,12 @@ class MicrophonePermissionKit: ObservableObject, PermissionKitProtocol {
         }
     }
     
+    /// Creates a SwiftUI card for microphone permission request
+    /// - Parameters:
+    ///   - title: Custom title for the permission card
+    ///   - description: Custom description for the permission request
+    ///   - onPermissionsCompleted: Callback when permission flow is completed
+    /// - Returns: SwiftUI view wrapped in AnyView
     func createPermissionCard(
         title: String?,
         description: String?,

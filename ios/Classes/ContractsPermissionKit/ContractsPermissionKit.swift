@@ -5,19 +5,23 @@
 //  Created by MaoJiu on 2025/6/2.
 //
 
-
 import Foundation
 import SwiftUI
 import Contacts
 
+/// Contacts permission kit for managing address book access
+/// Handles contacts permission requests using the Contacts framework
 @available(iOS 15.0, *)
 class ContractsPermissionKit: ObservableObject, PermissionKitProtocol {
+    /// Current contacts authorization status from CNContactStore
     @Published var status: CNAuthorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
     
+    /// Returns the permission type for this kit
     var permissionType: PermissionType {
         return .contracts
     }
     
+    /// Requests contacts access permission from the user
     func requestPermission() {
         let contactStore = CNContactStore()
         contactStore.requestAccess(for: .contacts) { granted, error in
@@ -27,6 +31,7 @@ class ContractsPermissionKit: ObservableObject, PermissionKitProtocol {
         }
     }
     
+    /// Converts CNContactStore authorization status to common AuthorizationStatus
     var permissionStatus: AuthorizationStatus {
         switch status {
         case .authorized:
@@ -41,6 +46,12 @@ class ContractsPermissionKit: ObservableObject, PermissionKitProtocol {
         }
     }
     
+    /// Creates a SwiftUI card for contacts permission request
+    /// - Parameters:
+    ///   - title: Custom title for the permission card
+    ///   - description: Custom description for the permission request
+    ///   - onPermissionsCompleted: Callback when permission flow is completed
+    /// - Returns: SwiftUI view wrapped in AnyView
     func createPermissionCard(
         title: String?,
         description: String?,
