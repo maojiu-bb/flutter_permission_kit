@@ -156,6 +156,10 @@ class CorePermissionKit {
         let calendarKit = CalendarPermissionKit()
         PermissionKitManager.shared.registerKit(calendarKit)
         
+        // Register tracking permission kit for AppTrackingTransparency
+        let trackingKit = TrackingPermissionKit()
+        PermissionKitManager.shared.registerKit(trackingKit)
+        
         // TODO: Register more permission kit
     }
     

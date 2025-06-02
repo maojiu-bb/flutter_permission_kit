@@ -63,5 +63,7 @@
 	<string>We need access to your location to show you the best results</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>We need access to your calendar to show you the best results</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>We need access to your tracking to show you the best results</string>
 </dict>
 </plist>

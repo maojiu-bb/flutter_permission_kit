@@ -168,6 +168,14 @@ enum PermissionType {
   /// - Reminder and appointment features
   calendar,
 
+  /// Tracking access permission for tracking user activity
+  ///
+  /// This permission allows the app to track user activity, including
+  /// app usage, location, and other device-related information. Required
+  /// for analytics, user tracking, and personalized features.
+  ///
+  tracking,
+
   // Additional permission types can be added here as needed
   // Examples: reminders, health, motion, bluetooth, faceID, etc.
   // When adding new types, ensure proper iOS documentation and Info.plist mappings
