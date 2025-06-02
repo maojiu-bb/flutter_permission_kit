@@ -138,6 +138,9 @@ class CorePermissionKit {
         let speeckKit = SpeechPermissionKit()
         PermissionKitManager.shared.registerKit(speeckKit)
         
+        let contractsKit = ContractsPermissionKit()
+        PermissionKitManager.shared.registerKit(contractsKit)
+        
         // TODO: Register more permission kit
     }
     

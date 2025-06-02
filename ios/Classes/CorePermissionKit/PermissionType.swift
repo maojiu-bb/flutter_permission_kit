@@ -85,6 +85,8 @@ enum PermissionType: String, CaseIterable {
     
     case speech
     
+    case contracts
+    
     // Additional permission types can be added here as needed
     // Examples that might be implemented:
     // - location: Location services access

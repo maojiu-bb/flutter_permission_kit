@@ -53,6 +53,11 @@ class _MyAppState extends State<MyApp> {
               description: 'Access to your speech',
               type: PermissionType.speech,
             ),
+            Permission(
+              name: 'Contracts',
+              description: 'Access to your contracts',
+              type: PermissionType.contracts,
+            ),
           ],
         ),
       );

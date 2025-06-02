@@ -1,15 +1,14 @@
 //
-//  SpeechPermissionCard.swift
+//  ContractsPermissionView.swift
 //  flutter_permission_kit
 //
 //  Created by MaoJiu on 2025/6/2.
 //
 
-
 import SwiftUI
 
 @available(iOS 15.0, *)
-struct SpeechPermissionCard: View {
+struct ContractsPermissionCard: View {
     private let corePermissionKit = CorePermissionKit.share
     
     var title: String?
@@ -18,8 +17,8 @@ struct SpeechPermissionCard: View {
     
     var onPermissionsCompleted: (() -> Void)?
     
-    private var speechPermissionKit: SpeechPermissionKit? {
-        return PermissionKitManager.shared.getKit(for: .speech) as? SpeechPermissionKit
+    private var contractsPermissionKit: ContractsPermissionKit? {
+        return PermissionKitManager.shared.getKit(for: .contracts) as? ContractsPermissionKit
     }
     
     init(title: String? = nil, description: String? = nil, onPermissionsCompleted: (() -> Void)? = nil) {
@@ -30,11 +29,11 @@ struct SpeechPermissionCard: View {
     
     var body: some View {
         Group {
-            if let kit = speechPermissionKit {
-                CorePermissionCard<SpeechPermissionKit>(
-                    icon: "waveform.circle",
-                    title: title ?? "Speech",
-                    description: description ?? "Allow to access your speech",
+            if let kit = contractsPermissionKit {
+                CorePermissionCard<ContractsPermissionKit>(
+                    icon: "person.crop.circle",
+                    title: title ?? "Contracts",
+                    description: description ?? "Allow to access your contracts",
                     permissionKit: kit
                 ) {
                     kit.requestPermission()
@@ -53,7 +52,7 @@ struct SpeechPermissionCard: View {
                     }
                 }
             } else {
-                Text("Speech permission kit not available")
+                Text("Contracts permission kit not available")
                     .foregroundStyle(.red)
                     .font(.caption)
             }

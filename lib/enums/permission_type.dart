@@ -46,6 +46,8 @@ enum PermissionType {
 
   speech,
 
+  contracts,
+
   // Additional permission types can be added here as needed
   // Examples: location, microphone, contacts, calendar, etc.
   // ...
