@@ -163,6 +163,10 @@ class CorePermissionKit {
         // Register reminder permission kit for reminder access
         let reminderKit = ReminderPermissionKit()
         PermissionKitManager.shared.registerKit(reminderKit)
+        
+        // Register bluetooth permission kit for bluetooth access
+        let bluetoothKit = BluetoothPermissionKit()
+        PermissionKitManager.shared.registerKit(bluetoothKit)
 
         
         // TODO: Register more permission kit

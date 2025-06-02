@@ -184,6 +184,14 @@ enum PermissionType {
   ///
   reminder,
 
+  /// Bluetooth access permission for connecting to Bluetooth devices
+  ///
+  /// This permission allows the app to connect to Bluetooth devices,
+  /// including scanning for nearby devices, connecting to them, and
+  /// exchanging data. Required for Bluetooth-based features like
+  /// wireless headphones, smartwatches, and other Bluetooth accessories.
+  bluetooth,
+
   // Additional permission types can be added here as needed
   // Examples: reminders, health, motion, bluetooth, faceID, etc.
   // When adding new types, ensure proper iOS documentation and Info.plist mappings

@@ -83,6 +83,11 @@ class _MyAppState extends State<MyApp> {
               description: 'Access to your reminder',
               type: PermissionType.reminder,
             ),
+            Permission(
+              name: 'Bluetooth',
+              description: 'Access to your bluetooth',
+              type: PermissionType.bluetooth,
+            ),
           ],
         ),
       );
