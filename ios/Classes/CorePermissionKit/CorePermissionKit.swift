@@ -152,6 +152,10 @@ class CorePermissionKit {
         let locationKit = LocationPermissionKit()
         PermissionKitManager.shared.registerKit(locationKit)
         
+        // Register calendar permission kit for calendar access
+        let calendarKit = CalendarPermissionKit()
+        PermissionKitManager.shared.registerKit(calendarKit)
+        
         // TODO: Register more permission kit
     }
     

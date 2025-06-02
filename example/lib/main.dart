@@ -68,6 +68,11 @@ class _MyAppState extends State<MyApp> {
               description: 'Access to your location',
               type: PermissionType.location,
             ),
+            Permission(
+              name: 'Calendar',
+              description: 'Access to your calendar',
+              type: PermissionType.calendar,
+            ),
           ],
         ),
       );

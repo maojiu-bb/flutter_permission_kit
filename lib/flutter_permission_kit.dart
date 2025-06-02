@@ -3,22 +3,24 @@ import 'package:flutter_permission_kit/core/flutter_permission_kit_config.dart';
 
 /// Main entry point for Flutter Permission Kit functionality
 ///
-/// This class provides a high-level API for managing permission requests in Flutter
-/// applications. It implements the singleton pattern to ensure consistent state
-/// management and prevent multiple instances from interfering with each other.
+/// This class provides a high-level API for managing permission requests in iOS
+/// Flutter applications. It implements the singleton pattern to ensure consistent
+/// state management and prevent multiple instances from interfering with each other.
 ///
-/// The class serves as a facade that simplifies the permission request process by:
+/// The class serves as a facade that simplifies the iOS permission request process by:
 /// - Providing a simple, developer-friendly API
-/// - Managing the underlying platform channel communication
-/// - Handling configuration validation and setup
+/// - Managing the underlying platform channel communication with iOS
+/// - Handling configuration validation and setup for iOS permissions
 /// - Ensuring proper initialization before permission requests
+/// - Supporting iOS-specific permission features and behaviors
 ///
 /// Key features:
-/// - Cross-platform permission handling (iOS and Android)
+/// - iOS permission handling with native iOS frameworks
 /// - Customizable UI for permission request dialogs
 /// - Automatic permission status checking
 /// - Configurable auto-dismiss behavior
 /// - Support for multiple permission types in a single request
+/// - Integration with iOS Info.plist requirements
 ///
 /// Example usage:
 /// ```dart
@@ -28,7 +30,6 @@ import 'package:flutter_permission_kit/core/flutter_permission_kit_config.dart';
 ///     displayType: DisplayType.alert,
 ///     displayTitle: 'App Permissions',
 ///     displayHeaderDescription: 'We need access to provide you with the best experience',
-///     primaryColor: Colors.blue,
 ///     permissions: [
 ///       Permission(
 ///         name: 'Camera Access',
@@ -73,32 +74,33 @@ class FlutterPermissionKit {
   /// singleton pattern. Only the factory constructor can create instances.
   FlutterPermissionKit._internal();
 
-  /// Initializes the Flutter Permission Kit with the provided configuration
+  /// Initializes the Flutter Permission Kit with the provided configuration for iOS
   ///
   /// This method must be called before attempting to request any permissions.
-  /// It sets up the native platform code with the specified configuration,
+  /// It sets up the native iOS platform code with the specified configuration,
   /// including UI customization options, permission list, and behavior settings.
   ///
   /// The initialization process involves:
   /// 1. Validating the provided configuration
-  /// 2. Serializing the configuration for platform transmission
-  /// 3. Sending the configuration to native iOS/Android code
-  /// 4. Setting up the permission request UI components
+  /// 2. Serializing the configuration for platform transmission to iOS
+  /// 3. Sending the configuration to native iOS code
+  /// 4. Setting up the permission request UI components using iOS frameworks
   /// 5. Configuring behavior flags (auto-dismiss, auto-check, etc.)
+  /// 6. Preparing iOS-specific permission handlers for each permission type
   ///
   /// Parameters:
   /// - [config]: A FlutterPermissionKitConfig instance containing:
-  ///   - List of permissions to request
+  ///   - List of permissions to request (with iOS Info.plist requirements)
   ///   - UI customization options (colors, text, display type)
   ///   - Behavior settings (auto-dismiss, auto-check)
   ///
   /// Returns:
   /// - A Future<bool> that resolves to:
-  ///   - `true` if initialization was successful
-  ///   - `false` if initialization failed (invalid config, platform error, etc.)
+  ///   - `true` if iOS initialization was successful
+  ///   - `false` if initialization failed (invalid config, iOS platform error, etc.)
   ///
   /// Throws:
-  /// - May throw platform-specific exceptions if the native code encounters
+  /// - May throw iOS-specific exceptions if the native code encounters
   ///   critical errors during initialization
   ///
   /// Example usage:
@@ -109,9 +111,6 @@ class FlutterPermissionKit {
   ///     displayTitle: 'Permission Request',
   ///     displayHeaderDescription: 'To provide key features, we need access to:',
   ///     displayBottomDescription: 'You can change these settings later in app preferences.',
-  ///     primaryColor: const Color(0xFF007AFF),
-  ///     autoDismiss: true,
-  ///     autoCheck: true,
   ///     permissions: [
   ///       Permission(
   ///         name: 'Camera',
@@ -145,6 +144,7 @@ class FlutterPermissionKit {
   /// - This method should be called only once during app initialization
   /// - Subsequent calls will override the previous configuration
   /// - Ensure all required permissions are included in the configuration
+  /// - Ensure proper iOS Info.plist usage descriptions are configured
   /// - The configuration cannot be modified after initialization without
   ///   calling init() again with a new configuration
   static Future<bool> init({required FlutterPermissionKitConfig config}) async {
