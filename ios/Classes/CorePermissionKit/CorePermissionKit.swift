@@ -141,6 +141,9 @@ class CorePermissionKit {
         let contractsKit = ContractsPermissionKit()
         PermissionKitManager.shared.registerKit(contractsKit)
         
+        let notificationKit = NotificationPermissionKit()
+        PermissionKitManager.shared.registerKit(notificationKit)
+        
         // TODO: Register more permission kit
     }
     

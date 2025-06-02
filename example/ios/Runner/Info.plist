@@ -57,5 +57,7 @@
 	<string>We need access to your speech to transcribe your voice</string>
 	<key>NSContactsUsageDescription</key>
 	<string>We need access to your contacts to save your profile picture</string>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>We need access to your notifications to show you the best results</string>
 </dict>
 </plist>

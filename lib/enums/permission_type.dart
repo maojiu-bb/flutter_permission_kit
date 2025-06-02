@@ -48,6 +48,8 @@ enum PermissionType {
 
   contracts,
 
+  notification,
+
   // Additional permission types can be added here as needed
   // Examples: location, microphone, contacts, calendar, etc.
   // ...
