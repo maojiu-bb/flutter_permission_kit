@@ -63,6 +63,11 @@ class _MyAppState extends State<MyApp> {
               description: 'Access to your notifications',
               type: PermissionType.notification,
             ),
+            Permission(
+              name: 'Location',
+              description: 'Access to your location',
+              type: PermissionType.location,
+            ),
           ],
         ),
       );

@@ -144,6 +144,9 @@ class CorePermissionKit {
         let notificationKit = NotificationPermissionKit()
         PermissionKitManager.shared.registerKit(notificationKit)
         
+        let locationKit = LocationPermissionKit()
+        PermissionKitManager.shared.registerKit(locationKit)
+        
         // TODO: Register more permission kit
     }
     
