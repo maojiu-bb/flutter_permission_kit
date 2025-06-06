@@ -93,6 +93,11 @@ class _MyAppState extends State<MyApp> {
               description: 'Access to your Apple Music',
               type: PermissionType.music,
             ),
+            Permission(
+              name: 'Siri',
+              description: 'Access to your Siri',
+              type: PermissionType.siri,
+            ),
           ],
         ),
       );

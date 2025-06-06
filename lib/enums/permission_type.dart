@@ -200,6 +200,15 @@ enum PermissionType {
   ///
   music,
 
+  /// Siri access permission for using Siri voice commands
+  ///
+  /// This permission allows the app to use Siri voice commands,
+  /// including asking Siri to perform actions, search for information,
+  /// and control the device. Required for voice-based features and
+  /// Siri integration.
+  ///
+  siri,
+
   // Additional permission types can be added here as needed
   // Examples: reminders, health, motion, bluetooth, faceID, etc.
   // When adding new types, ensure proper iOS documentation and Info.plist mappings

@@ -71,5 +71,7 @@
 	<string>We need access to your bluetooth to show you the best results</string>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>We need access to your Apple Music to show you the best results</string>
+	<key>NSSiriUsageDescription</key>
+	<string>We need access to your Siri to show you the best results</string>
 </dict>
 </plist>

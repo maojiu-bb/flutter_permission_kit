@@ -171,6 +171,10 @@ class CorePermissionKit {
         // Register apple music permission kit for music access
         let musicKit = MusicPermissionKit()
         PermissionKitManager.shared.registerKit(musicKit)
+        
+        // Register siri permission kit fro siri access
+        let siriKit = SiriPermissionKit()
+        PermissionKitManager.shared.registerKit(siriKit)
 
         
         // TODO: Register more permission kit

@@ -266,6 +266,8 @@ enum PermissionType: String, CaseIterable {
     
     case music
     
+    case siri
+    
     // Additional permission types can be added here as needed
     // Examples that might be implemented in future versions:
     // - calendar: Calendar events access (NSCalendarsUsageDescription)
