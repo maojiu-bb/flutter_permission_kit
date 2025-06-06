@@ -167,6 +167,10 @@ class CorePermissionKit {
         // Register bluetooth permission kit for bluetooth access
         let bluetoothKit = BluetoothPermissionKit()
         PermissionKitManager.shared.registerKit(bluetoothKit)
+        
+        // Register apple music permission kit for music access
+        let musicKit = MusicPermissionKit()
+        PermissionKitManager.shared.registerKit(musicKit)
 
         
         // TODO: Register more permission kit

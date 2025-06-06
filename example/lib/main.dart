@@ -88,6 +88,11 @@ class _MyAppState extends State<MyApp> {
               description: 'Access to your bluetooth',
               type: PermissionType.bluetooth,
             ),
+            Permission(
+              name: 'Apple Music',
+              description: 'Access to your Apple Music',
+              type: PermissionType.music,
+            ),
           ],
         ),
       );

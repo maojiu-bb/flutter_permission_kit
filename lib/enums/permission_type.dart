@@ -192,6 +192,14 @@ enum PermissionType {
   /// wireless headphones, smartwatches, and other Bluetooth accessories.
   bluetooth,
 
+  /// Apple Music access permission for playing music and audio files
+  ///
+  /// This permission allows the app to play music and audio files,
+  /// including streaming music from services like Apple Music.
+  /// Required for music playback and audio features.
+  ///
+  music,
+
   // Additional permission types can be added here as needed
   // Examples: reminders, health, motion, bluetooth, faceID, etc.
   // When adding new types, ensure proper iOS documentation and Info.plist mappings
