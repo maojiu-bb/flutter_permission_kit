@@ -95,6 +95,7 @@ class FlutterPermissionKit {
   ///   - Behavior settings (auto-dismiss, auto-check)
   ///
   /// Returns:
+  // ignore: unintended_html_in_doc_comment
   /// - A Future<bool> that resolves to:
   ///   - `true` if iOS initialization was successful
   ///   - `false` if initialization failed (invalid config, iOS platform error, etc.)
