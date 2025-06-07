@@ -21,22 +21,44 @@ import SwiftUI
  * - **Flutter Bridge**: Handles method channel communication with Flutter layer
  * - **Configuration Manager**: Parses and manages permission request configuration
  * - **UI Coordinator**: Orchestrates permission request UI presentation and dismissal
- * - **Kit Registry**: Manages registration and initialization of specific permission kits
+ * - **Kit Registry**: Manages on-demand registration and initialization of specific permission kits
  * - **State Manager**: Tracks permission request state and completion status
  *
  * **Key Responsibilities**:
  * - Parse configuration data from Flutter layer
- * - Register and initialize available permission kits (Camera, Photos, etc.)
+ * - Register only required permission kits based on configuration (on-demand approach)
  * - Present permission request UI with appropriate display style
  * - Coordinate between multiple permission requests
  * - Handle permission completion and UI dismissal
  * - Provide permission status checking functionality
  *
+ * **On-Demand Registration Architecture** (New in v2.0):
+ * Previous versions registered all available permission kits during initialization, regardless
+ * of whether they would be used. The new on-demand approach offers several benefits:
+ * 
+ * **Benefits**:
+ * - **Memory Efficiency**: Only creates permission kit instances that will actually be used
+ * - **Faster Startup**: Reduces initialization time by avoiding unnecessary object creation
+ * - **Configuration-Driven**: Adapts to actual usage requirements automatically
+ * - **Resource Optimization**: Prevents instantiation of unused permission handlers
+ * - **Scalability**: Better performance as more permission types are added to the system
+ * 
+ * **How On-Demand Registration Works**:
+ * 1. Flutter layer sends configuration specifying required permission types
+ * 2. CorePermissionKit parses configuration and identifies required permission types
+ * 3. Only the permission kits for requested types are instantiated and registered
+ * 4. Subsequent permission checks and UI generation use only the registered kits
+ * 5. Multiple configuration calls reuse already-registered kits (avoid duplicate registration)
+ * 
+ * **Example**: If your app only requests camera and photos permissions, only CameraPermissionKit
+ * and PhotosPermissionKit will be created. LocationPermissionKit, MicrophonePermissionKit, etc.
+ * will not be instantiated at all, saving memory and initialization time.
+ *
  * **Permission Request Flow**:
  * 1. Flutter layer sends configuration via method channel
- * 2. CorePermissionKit parses configuration and validates permissions
+ * 2. CorePermissionKit parses configuration and registers required permission kits
  * 3. If permissions already granted, return success immediately
- * 4. Otherwise, present permission request UI
+ * 4. Otherwise, present permission request UI using registered kits
  * 5. User interacts with permission cards
  * 6. Monitor permission status changes across all requested types
  * 7. Dismiss UI when all permissions are determined
@@ -45,6 +67,10 @@ import SwiftUI
  * **UI Presentation Modes**:
  * - **Modal**: Custom SwiftUI interface with full control over design
  * - **Alert**: Native iOS alert style for minimal, system-consistent experience
+ *
+ * **Backward Compatibility**:
+ * The legacy `registerPermissionKits()` method is still available for cases where you need
+ * all permission kits registered upfront, but it's no longer called automatically.
  *
  * Requirements: iOS 15.0 or later for SwiftUI features and protocol constraints
  */
@@ -99,29 +125,129 @@ class CorePermissionKit {
     /**
      * Private initializer enforcing singleton pattern
      *
-     * Initializes the CorePermissionKit and registers all available permission kits.
+     * Initializes the CorePermissionKit without registering permission kits upfront.
+     * Permission kits will now be registered on-demand based on configuration requirements.
      * Private access prevents external instantiation, ensuring a single source of
      * truth for permission management throughout the app.
      */
     private init() {
-        registerPermissionKits()
+        // Removed automatic registration - kits will be registered on-demand
+        // registerPermissionKits()
     }
     
     /**
-     * Registers all available permission kits with the permission kit manager
+     * Registers permission kits based on the provided configuration
      *
-     * This method initializes and registers instances of all supported permission types
-     * with the PermissionKitManager. Registration makes permission kits available for
-     * use throughout the permission request flow.
+     * This method dynamically registers only the permission kits that are actually needed
+     * based on the permissions specified in the configuration. This approach is more
+     * efficient as it avoids instantiating and storing unused permission kits.
      *
-     * **Current Registrations**:
-     * - PhotosPermissionKit: Handles photo library access permissions
-     * - CameraPermissionKit: Handles camera access permissions
+     * **On-Demand Registration Benefits**:
+     * - Memory efficiency: Only creates kits that will be used
+     * - Faster initialization: Reduces startup time
+     * - Resource optimization: Prevents unnecessary object creation
+     * - Configuration-driven: Adapts to actual usage requirements
      *
-     * **Extensibility**: New permission types can be added by creating their kit
-     * classes and registering them here following the same pattern.
+     * - Parameter permissions: Array of PermissionItem objects from configuration
+     *   specifying which permission types need to be registered
      *
-     * **Thread Safety**: Should be called only during initialization on main thread
+     * **Registration Process**:
+     * 1. Iterate through requested permission types
+     * 2. Check if kit is already registered (avoid duplicate registration)
+     * 3. Create and register kit instance for each required type
+     * 4. Skip registration for already-registered or unsupported types
+     *
+     * **Thread Safety**: Should be called on the main thread before UI presentation
+     */
+    private func registerRequiredPermissionKits(for permissions: [PermissionItem]) {
+        let requiredTypes = Set(permissions.map { $0.type })
+        let alreadyRegistered = PermissionKitManager.shared.getRegisteredTypes()
+        let toRegister = requiredTypes.subtracting(alreadyRegistered)
+        
+        // Log registration information for debugging
+        if !toRegister.isEmpty {
+            print("🔐 FlutterPermissionKit: Registering permission kits for types: \(toRegister.map { $0.rawValue }.joined(separator: ", "))")
+        }
+        
+        if !alreadyRegistered.isEmpty {
+            print("🔐 FlutterPermissionKit: Already registered kits: \(alreadyRegistered.map { $0.rawValue }.joined(separator: ", "))")
+        }
+        
+        for permissionType in toRegister {
+            // Register appropriate kit based on permission type
+            switch permissionType {
+            case .photos:
+                let photosKit = PhotosPermissionKit()
+                PermissionKitManager.shared.registerKit(photosKit)
+                
+            case .camera:
+                let cameraKit = CameraPermissionKit()
+                PermissionKitManager.shared.registerKit(cameraKit)
+                
+            case .microphone:
+                let microphoneKit = MicrophonePermissionKit()
+                PermissionKitManager.shared.registerKit(microphoneKit)
+                
+            case .speech:
+                let speechKit = SpeechPermissionKit()
+                PermissionKitManager.shared.registerKit(speechKit)
+                
+            case .contacts:
+                let contactsKit = ContactsPermissionKit()
+                PermissionKitManager.shared.registerKit(contactsKit)
+                
+            case .notification:
+                let notificationKit = NotificationPermissionKit()
+                PermissionKitManager.shared.registerKit(notificationKit)
+                
+            case .location:
+                let locationKit = LocationPermissionKit()
+                PermissionKitManager.shared.registerKit(locationKit)
+                
+            case .calendar:
+                let calendarKit = CalendarPermissionKit()
+                PermissionKitManager.shared.registerKit(calendarKit)
+                
+            case .tracking:
+                let trackingKit = TrackingPermissionKit()
+                PermissionKitManager.shared.registerKit(trackingKit)
+                
+            case .reminder:
+                let reminderKit = ReminderPermissionKit()
+                PermissionKitManager.shared.registerKit(reminderKit)
+                
+            case .bluetooth:
+                let bluetoothKit = BluetoothPermissionKit()
+                PermissionKitManager.shared.registerKit(bluetoothKit)
+                
+            case .music:
+                let musicKit = MusicPermissionKit()
+                PermissionKitManager.shared.registerKit(musicKit)
+                
+            case .siri:
+                let siriKit = SiriPermissionKit()
+                PermissionKitManager.shared.registerKit(siriKit)
+            }
+        }
+        
+        // Log final registration state
+        let finalRegistered = PermissionKitManager.shared.getRegisteredTypes()
+        print("🔐 FlutterPermissionKit: Total registered kits: \(finalRegistered.count) (\(finalRegistered.map { $0.rawValue }.joined(separator: ", ")))")
+    }
+    
+    /**
+     * Legacy method for registering all permission kits at once
+     *
+     * This method has been deprecated in favor of on-demand registration.
+     * It's kept for backward compatibility and can be used if you need to
+     * register all available permission kits regardless of configuration.
+     *
+     * **Deprecated**: Use registerRequiredPermissionKits(for:) instead
+     * **Memory Impact**: Creates all permission kit instances regardless of usage
+     * **Use Case**: Only use if you need all permission types available globally
+     *
+     * **Note**: This method is no longer called during initialization.
+     * Call explicitly if you need all kits registered for any reason.
      */
     private func registerPermissionKits() {
         // Register photos permission kit for photo library access
@@ -216,6 +342,10 @@ class CorePermissionKit {
         
         // Store configuration for use throughout permission flow
         self.config = config
+        
+        // Register only the permission kits needed based on configuration
+        // This approach is more efficient than registering all kits upfront
+        self.registerRequiredPermissionKits(for: config.permissions)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             // Check if all requested permissions are already granted
@@ -452,6 +582,32 @@ class CorePermissionKit {
         }
         
         return permissionsStatus
+    }
+    
+    /**
+     * Gets information about currently registered permission kits
+     *
+     * This method provides visibility into which permission kits are currently
+     * registered and available for use. Useful for debugging, status reporting,
+     * and understanding the current state of the permission system.
+     *
+     * - Returns: Set of PermissionType values representing currently registered kits
+     *
+     * **Use Cases**:
+     * - Debugging: Verify expected kits are registered
+     * - Status reporting: Report available permission types to Flutter layer
+     * - Feature detection: Check if specific permission types are supported
+     * - Testing: Validate kit registration in unit tests
+     *
+     * **Example**:
+     * ```swift
+     * let registeredTypes = CorePermissionKit.share.getRegisteredPermissionTypes()
+     * print("Registered permission types: \(registeredTypes)")
+     * // Output: [.camera, .photos] (only if these were requested in config)
+     * ```
+     */
+    func getRegisteredPermissionTypes() -> Set<PermissionType> {
+        return PermissionKitManager.shared.getRegisteredTypes()
     }
     
     /**

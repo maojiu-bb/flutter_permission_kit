@@ -1,3 +1,11 @@
+## 1.0.1
+
+### 🔧 Improvements
+
+- **Kit Auto Registration**: Implemented automatic permission kit registration based on configuration
+- **Siri Configuration Guide**: Added comprehensive Siri permission setup tutorial with Xcode instructions
+- **Documentation Fixes**: Fixed various documentation errors and improved clarity
+
 ## 1.0.0
 
 ### 🎉 Initial Release - Major Features Launch

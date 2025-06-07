@@ -80,15 +80,12 @@ flutter pub get
 Add the required permission descriptions to your `ios/Runner/Info.plist`:
 
 ```xml
-<dict>
     <!-- Camera Permission -->
     <key>NSCameraUsageDescription</key>
     <string>We need access to your camera to take photos</string>
 
     <!-- Photo Library Permission -->
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>We need access to your photos to save your profile picture</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
     <string>We need access to your photos to save your profile picture</string>
 
     <!-- Microphone Permission -->
@@ -130,8 +127,25 @@ Add the required permission descriptions to your `ios/Runner/Info.plist`:
     <!-- Siri Permission -->
     <key>NSSiriUsageDescription</key>
     <string>We need access to Siri for voice commands</string>
-</dict>
 ```
+
+#### Siri Special Configuration
+
+<div align="center">
+<img src="screenshots/siri.png" width="300" alt="siri">
+</div>
+
+**Important:** Siri integration requires additional configuration in Xcode beyond the standard Info.plist setup.
+
+##### Enable Siri Capability in Xcode
+
+1. Open your project in Xcode (`ios/Runner.xcodeproj`)
+2. Select your app target (Runner)
+3. Go to **Signing & Capabilities** tab
+4. Click **+ Capability**
+5. Add **SiriKit** capability
+
+This will automatically create the necessary entitlements file and configure Siri integration for your app.
 
 ### 2. Minimum iOS Version
 
@@ -173,7 +187,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _initializePermissions();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (!mounted) return;
+        _initializePermissions();
+    });
   }
 
   Future<void> _initializePermissions() async {
