@@ -80,6 +80,7 @@ class FlutterPermissionKitConfig {
 
   /// Converts this FlutterPermissionKitConfig instance to a JSON-serializable Map
   ///
+  // ignore: unintended_html_in_doc_comment
   /// This method serializes the entire configuration object into a Map<String, dynamic>
   /// format suitable for JSON conversion. This is essential for passing configuration
   /// data to native platform code through method channels, storing settings in files,

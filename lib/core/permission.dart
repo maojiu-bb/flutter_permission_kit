@@ -45,6 +45,7 @@ class Permission {
 
   /// Converts this Permission instance to a JSON-serializable Map
   ///
+  // ignore: unintended_html_in_doc_comment
   /// This method serializes the Permission object into a Map<String, dynamic>
   /// format that can be easily converted to JSON for storage, transmission,
   /// or communication with platform channels. This is particularly useful

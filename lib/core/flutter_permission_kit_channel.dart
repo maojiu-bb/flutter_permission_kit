@@ -61,6 +61,7 @@ class FlutterPermissionKitChannel {
   ///   specifically designed for iOS implementation
   ///
   /// Returns:
+  // ignore: unintended_html_in_doc_comment
   /// - A Future<bool> that completes when the native iOS initialization is finished
   ///   - `true` if iOS initialization was successful
   ///   - `false` if iOS initialization failed
