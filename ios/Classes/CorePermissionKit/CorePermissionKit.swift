@@ -141,8 +141,8 @@ class CorePermissionKit {
         PermissionKitManager.shared.registerKit(speechKit)
         
         // Register contracts permission kit for contact access
-        let contractsKit = ContractsPermissionKit()
-        PermissionKitManager.shared.registerKit(contractsKit)
+        let contactsKit = ContactsPermissionKit()
+        PermissionKitManager.shared.registerKit(contactsKit)
         
         // Register notification permission kit for push notifications
         let notificationKit = NotificationPermissionKit()

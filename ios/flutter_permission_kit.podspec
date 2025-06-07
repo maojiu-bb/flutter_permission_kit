@@ -4,18 +4,18 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_permission_kit'
-  s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.version          = '1.0.0'
+  s.summary          = 'A comprehensive Flutter plugin for managing iOS system permissions with customizable UI and unified API.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+Flutter Permission Kit provides a beautiful, native iOS permission management solution with support for 13 iOS permission types including Camera, Photos, Microphone, Speech Recognition, Contacts, Notifications, Location, Calendar, Tracking, Reminders, Bluetooth, Apple Music, and Siri. Features customizable Alert and Modal display modes, dark mode support, and unified API for streamlined permission management.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/maojiu-bb/flutter_permission_kit'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'maojiu-bb' => 'maojiu-bb@github.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '12.0'
+  s.platform = :ios, '15.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

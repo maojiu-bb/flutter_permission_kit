@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
             Permission(
               name: 'Contracts',
               description: 'Access to your contracts',
-              type: PermissionType.contracts,
+              type: PermissionType.contacts,
             ),
             Permission(
               name: 'Notification',

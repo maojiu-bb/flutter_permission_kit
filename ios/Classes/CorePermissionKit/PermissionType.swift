@@ -174,7 +174,7 @@ enum PermissionType: String, CaseIterable {
     /// <key>NSContactsUsageDescription</key>
     /// <string>This app needs access to your contacts to help you easily share content with friends.</string>
     /// ```
-    case contracts
+    case contacts
     
     /// Push notification permission
     ///

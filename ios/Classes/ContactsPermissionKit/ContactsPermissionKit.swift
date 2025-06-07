@@ -12,13 +12,13 @@ import Contacts
 /// Contacts permission kit for managing address book access
 /// Handles contacts permission requests using the Contacts framework
 @available(iOS 15.0, *)
-class ContractsPermissionKit: ObservableObject, PermissionKitProtocol {
+class ContactsPermissionKit: ObservableObject, PermissionKitProtocol {
     /// Current contacts authorization status from CNContactStore
     @Published var status: CNAuthorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
     
     /// Returns the permission type for this kit
     var permissionType: PermissionType {
-        return .contracts
+        return .contacts
     }
     
     /// Requests contacts access permission from the user
@@ -58,7 +58,7 @@ class ContractsPermissionKit: ObservableObject, PermissionKitProtocol {
         onPermissionsCompleted: @escaping () -> Void
     ) -> AnyView {
         return AnyView(
-            ContractsPermissionCard(
+            ContactsPermissionCard(
                 title: title,
                 description: description,
                 onPermissionsCompleted: onPermissionsCompleted

@@ -1,7 +1,10 @@
 name: flutter_permission_kit
-description: "A new Flutter plugin project."
-version: 0.0.1
-homepage:
+description: 'A comprehensive Flutter plugin for managing iOS system permissions with customizable UI and unified API for camera, photos, microphone, location, contacts, notifications, and more.'
+version: 1.0.0
+homepage: https://github.com/maojiu-bb/flutter_permission_kit
+repository: https://github.com/maojiu-bb/flutter_permission_kit
+issue_tracker: https://github.com/maojiu-bb/flutter_permission_kit/issues
+documentation: https://github.com/maojiu-bb/flutter_permission_kit/blob/main/README.md
 
 environment:
   sdk: ^3.7.2

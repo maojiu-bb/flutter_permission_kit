@@ -10,7 +10,7 @@ import SwiftUI
 /// SwiftUI view card for contacts permission request interface
 /// Displays a user-friendly interface for requesting contacts access
 @available(iOS 15.0, *)
-struct ContractsPermissionCard: View {
+struct ContactsPermissionCard: View {
     /// Core permission kit shared instance
     private let corePermissionKit = CorePermissionKit.share
     
@@ -24,8 +24,8 @@ struct ContractsPermissionCard: View {
     var onPermissionsCompleted: (() -> Void)?
     
     /// Gets the contacts permission kit from the manager
-    private var contractsPermissionKit: ContractsPermissionKit? {
-        return PermissionKitManager.shared.getKit(for: .contracts) as? ContractsPermissionKit
+    private var contactsPermissionKit: ContactsPermissionKit? {
+        return PermissionKitManager.shared.getKit(for: .contacts) as? ContactsPermissionKit
     }
     
     /// Initializes the permission card with optional customization
@@ -37,9 +37,9 @@ struct ContractsPermissionCard: View {
     
     var body: some View {
         Group {
-            if let kit = contractsPermissionKit {
+            if let kit = contactsPermissionKit {
                 // Create the permission card UI with person icon
-                CorePermissionCard<ContractsPermissionKit>(
+                CorePermissionCard<ContactsPermissionKit>(
                     icon: "person.crop.circle",
                     title: title ?? "Contracts",
                     description: description ?? "Allow to access your contracts",
@@ -63,7 +63,7 @@ struct ContractsPermissionCard: View {
                 }
             } else {
                 // Fallback UI when permission kit is not available
-                Text("Contracts permission kit not available")
+                Text("Contacts permission kit not available")
                     .foregroundStyle(.red)
                     .font(.caption)
             }

@@ -99,7 +99,7 @@ enum PermissionType {
   /// - Social network integration
   /// - Address book synchronization
   /// - Friend finding and invitation features
-  contracts,
+  contacts,
 
   /// Push notification permission for sending notifications
   ///
