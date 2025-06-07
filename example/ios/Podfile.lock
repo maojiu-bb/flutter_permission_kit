@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_permission_kit (0.0.1):
+  - flutter_permission_kit (1.0.0):
     - Flutter
   - integration_test (0.0.1):
     - Flutter
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_permission_kit: dd56ddd563d4877e709b880d8787b26e93a7226a
+  flutter_permission_kit: 11db3c3fc74f3aa1a127d5b46b1daf985d8e3824
   integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
 
 PODFILE CHECKSUM: 53a6aebc29ccee84c41f92f409fc20cd4ca011f1
