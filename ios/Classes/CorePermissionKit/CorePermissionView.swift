@@ -195,47 +195,56 @@ struct CorePermissionView<Content: View>: View {
      * - System background colors that adapt to light/dark mode
      */
     var body: some View {
-        VStack(alignment: .leading) {
-            // Main title with prominent typography
-            Text(displayTitle)
-                .font(.title.bold())
-                .foregroundStyle(.primary)
-                .padding(.bottom)
-            
-            // Header description with secondary styling
-            Text(displayHeaderDescription)
-                .font(.callout)
-                .foregroundStyle(.secondary)
-            
-            // Permission cards container with visual styling
-            VStack {
-                content()
+        GeometryReader { geometry in
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 0) {
+                    // Content container
+                    VStack(alignment: .leading) {
+                        // Main title with prominent typography
+                        Text(displayTitle)
+                            .font(.title.bold())
+                            .foregroundStyle(.primary)
+                            .padding(.bottom)
+                        
+                        // Header description with secondary styling
+                        Text(displayHeaderDescription)
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                        
+                        // Permission cards container with visual styling
+                        VStack {
+                            content()
+                        }
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(
+                                cornerRadius: 20,
+                                style: .continuous
+                            )
+                            .fill(.background)
+                        )
+                        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
+                        .padding(.vertical)
+                        
+                        // Bottom description with secondary styling
+                        Text(displayBottomDescription)
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(20)
+                    .background(
+                        RoundedRectangle(
+                            cornerRadius: 30,
+                            style: .continuous
+                        )
+                        .fill(Color(.secondarySystemBackground))
+                    )
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: geometry.size.height, alignment: .center) // Center content vertically when space is available
+                }
             }
-            .padding(10)
-            .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(
-                    cornerRadius: 20,
-                    style: .continuous
-                )
-                .fill(.background)
-            )
-            .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
-            .padding(.vertical)
-            
-            // Bottom description with secondary styling
-            Text(displayBottomDescription)
-                .font(.callout)
-                .foregroundStyle(.secondary)
         }
-        .padding(20)
-        .background(
-            RoundedRectangle(
-                cornerRadius: 30,
-                style: .continuous
-            )
-            .fill(Color(.secondarySystemBackground))
-        )
-        .padding()
     }
 }

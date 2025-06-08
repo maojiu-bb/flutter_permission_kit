@@ -1,3 +1,9 @@
+## 1.2.1
+
+### 🐛 Bug Fixes
+
+- **CorePermissionView**: Fixed layout overflow and excessive whitespace issues
+
 ## 1.2.0
 
 ### ✨ New Features
