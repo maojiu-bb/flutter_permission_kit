@@ -9,6 +9,7 @@
 [![pub package](https://img.shields.io/pub/v/flutter_permission_kit.svg)](https://pub.dev/packages/flutter_permission_kit)
 [![GitHub](https://img.shields.io/github/license/maojiu-bb/flutter_permission_kit)](https://github.com/maojiu-bb/flutter_permission_kit/blob/main/LICENSE)
 [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey)](https://github.com/maojiu-bb/flutter_permission_kit)
+[![CI](https://github.com/maojiu-bb/flutter_declarative_syntax/actions/workflows/ci.yml/badge.svg)](https://github.com/maojiu-bb/flutter_declarative_syntax/actions/workflows/ci.yml)
 
 </div>
 
