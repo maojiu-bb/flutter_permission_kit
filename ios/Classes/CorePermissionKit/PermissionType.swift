@@ -268,15 +268,75 @@ enum PermissionType: String, CaseIterable {
     
     case siri
     
+    /// Health data access permission
+    ///
+    /// Allows the app to access health data stored in the iOS Health app,
+    /// including reading health records, writing health data, and sharing
+    /// health information. Essential for fitness, wellness, and medical
+    /// applications that integrate with Apple's HealthKit framework.
+    ///
+    /// iOS Requirements:
+    /// - Info.plist key: NSHealthShareUsageDescription (for reading health data)
+    /// - Info.plist key: NSHealthUpdateUsageDescription (for writing health data)
+    /// - System permission: HKHealthStore authorization for specific data types
+    /// - User-facing permission dialog: "Allow [App] to access your health data?"
+    /// - Entitlement: com.apple.developer.healthkit (required for App Store)
+    ///
+    /// Health data categories:
+    /// - Activity: Steps, distance, calories burned, active energy
+    /// - Body measurements: Weight, height, body mass index, body fat percentage
+    /// - Vital signs: Heart rate, blood pressure, respiratory rate, body temperature
+    /// - Nutrition: Dietary information, water intake, caffeine consumption
+    /// - Sleep: Sleep analysis, sleep stages, time in bed
+    /// - Reproductive health: Menstrual flow, sexual activity, pregnancy data
+    /// - Medical records: Allergies, medications, conditions, procedures
+    ///
+    /// Common use cases:
+    /// - Fitness tracking and workout recording
+    /// - Health monitoring and vital sign tracking
+    /// - Medical record management and sharing
+    /// - Nutrition and diet tracking applications
+    /// - Sleep pattern analysis and monitoring
+    /// - Integration with health devices and wearables
+    /// - Telemedicine and remote patient monitoring
+    /// - Research and clinical trial data collection
+    ///
+    /// Privacy considerations:
+    /// - Health data is extremely sensitive personal information
+    /// - Request only necessary health data types for your app's functionality
+    /// - Provide clear explanation of health data usage and benefits
+    /// - Implement proper data security, encryption, and access controls
+    /// - Respect user's choice to deny or limit health access
+    /// - Follow Apple's health data privacy guidelines and best practices
+    /// - Consider HIPAA compliance requirements for medical applications
+    /// - Be transparent about data sharing with third parties
+    ///
+    /// Technical considerations:
+    /// - Health data permissions are granular - users can approve/deny individual data types
+    /// - Some health data types require special entitlements (e.g., clinical health records)
+    /// - Background delivery of health data requires proper configuration
+    /// - Health data synchronization across devices via iCloud
+    /// - Consider offline functionality when health data is not available
+    ///
+    /// Example Info.plist entries:
+    /// ```xml
+    /// <key>NSHealthShareUsageDescription</key>
+    /// <string>This app reads your health data to provide personalized fitness insights and track your wellness goals.</string>
+    /// <key>NSHealthUpdateUsageDescription</key>
+    /// <string>This app writes workout and health data to the Health app to keep your health information up to date.</string>
+    /// ```
+    ///
+    /// Note: Health data access requires explicit user consent for each data type
+    /// and users have granular control over which health information to share.
+    /// Apps must handle partial permissions gracefully when users deny access
+    /// to some but not all requested health data types.
+    case health
+    
     // Additional permission types can be added here as needed
     // Examples that might be implemented in future versions:
-    // - calendar: Calendar events access (NSCalendarsUsageDescription)
-    // - reminders: Reminders app access (NSRemindersUsageDescription)
-    // - health: HealthKit data access (NSHealthShareUsageDescription)
     // - motion: Motion and fitness data (NSMotionUsageDescription)
-    // - bluetooth: Bluetooth peripheral access (NSBluetoothAlwaysUsageDescription)
     // - faceID: Face ID authentication (NSFaceIDUsageDescription)
-    // - mediaLibrary: Apple Music library access (NSAppleMusicUsageDescription)
+    // - touchID: Touch ID authentication
     
     /// Initializes a PermissionType from a string value
     ///

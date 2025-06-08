@@ -1,3 +1,9 @@
+## 1.1.0
+
+### ✨ New Features
+
+- **HealthPermissionKit**: Added health data permission management using Apple's HealthKit framework
+
 ## 1.0.1
 
 ### 🔧 Improvements

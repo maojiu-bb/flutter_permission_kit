@@ -227,6 +227,10 @@ class CorePermissionKit {
             case .siri:
                 let siriKit = SiriPermissionKit()
                 PermissionKitManager.shared.registerKit(siriKit)
+                
+            case .health:
+                let healthKit = HealthPermissionKit()
+                PermissionKitManager.shared.registerKit(healthKit)
             }
         }
         
@@ -301,6 +305,10 @@ class CorePermissionKit {
         // Register siri permission kit fro siri access
         let siriKit = SiriPermissionKit()
         PermissionKitManager.shared.registerKit(siriKit)
+        
+        // Register health permission kit for health data access
+        let healthKit = HealthPermissionKit()
+        PermissionKitManager.shared.registerKit(healthKit)
 
         
         // TODO: Register more permission kit

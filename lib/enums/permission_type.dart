@@ -209,7 +209,42 @@ enum PermissionType {
   ///
   siri,
 
+  /// Health data access permission for reading and writing health information
+  ///
+  /// This permission allows the app to access health data stored in the
+  /// iOS Health app, including reading health records, writing health data,
+  /// and sharing health information. Essential for fitness, wellness, and
+  /// medical applications that integrate with Apple's HealthKit framework.
+  ///
+  /// iOS Requirements:
+  /// - Info.plist key: NSHealthShareUsageDescription (for reading health data)
+  /// - Info.plist key: NSHealthUpdateUsageDescription (for writing health data)
+  /// - Framework: HealthKit (HKHealthStore)
+  /// - User dialog: "Allow [App] to access your health data?"
+  /// - Entitlement: com.apple.developer.healthkit (required for App Store)
+  ///
+  /// Common use cases:
+  /// - Fitness tracking and workout recording
+  /// - Health monitoring and vital sign tracking
+  /// - Medical record management and sharing
+  /// - Nutrition and diet tracking
+  /// - Sleep pattern analysis and monitoring
+  /// - Integration with health devices and wearables
+  ///
+  /// Privacy considerations:
+  /// - Request only necessary health data types
+  /// - Provide clear explanation of health data usage
+  /// - Implement proper data security and encryption
+  /// - Respect user's choice to deny or limit health access
+  /// - Follow Apple's health data privacy guidelines
+  /// - Consider HIPAA compliance for medical applications
+  ///
+  /// Note: Health data is particularly sensitive and requires explicit
+  /// user consent for each data type. Users can grant granular permissions
+  /// for different types of health information (steps, heart rate, etc.).
+  health,
+
   // Additional permission types can be added here as needed
-  // Examples: reminders, health, motion, bluetooth, faceID, etc.
+  // Examples: motion, faceID, touchID, etc.
   // When adding new types, ensure proper iOS documentation and Info.plist mappings
 }

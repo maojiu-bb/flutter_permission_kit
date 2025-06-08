@@ -41,6 +41,7 @@ Flutter Permission Kit provides a beautiful, native iOS permission management so
 | **Bluetooth**          | Bluetooth device access   | CoreBluetooth           |
 | **Apple Music**        | Music library access      | MediaPlayer             |
 | **Siri**               | Siri integration          | Intents                 |
+| **Health**             | Health data access        | HealthKit               |
 
 ## 🎨 UI Showcase
 
@@ -64,7 +65,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_permission_kit: ^1.0.0
+  flutter_permission_kit: ^1.1.0
 ```
 
 Then run:
@@ -127,6 +128,12 @@ Add the required permission descriptions to your `ios/Runner/Info.plist`:
     <!-- Siri Permission -->
     <key>NSSiriUsageDescription</key>
     <string>We need access to Siri for voice commands</string>
+
+    <!-- Health Permission -->
+    <key>NSHealthShareUsageDescription</key>
+    <string>We need access to your health data to provide personalized fitness insights</string>
+    <key>NSHealthUpdateUsageDescription</key>
+    <string>We need to write workout data to keep your health information up to date</string>
 ```
 
 #### Siri Special Configuration
@@ -146,6 +153,24 @@ Add the required permission descriptions to your `ios/Runner/Info.plist`:
 5. Add **SiriKit** capability
 
 This will automatically create the necessary entitlements file and configure Siri integration for your app.
+
+#### Health Special Configuration
+
+<div align="center">
+<img src="screenshots/health.png" width="300" alt="health">
+</div>
+
+**Important:** Health data access requires additional configuration in Xcode beyond the standard Info.plist setup.
+
+##### Enable HealthKit Capability in Xcode
+
+1. Open your project in Xcode (`ios/Runner.xcodeproj`)
+2. Select your app target (Runner)
+3. Go to **Signing & Capabilities** tab
+4. Click **+ Capability**
+5. Add **HealthKit** capability
+
+This will automatically create the necessary entitlements and configure HealthKit integration for your app.
 
 ### 2. Minimum iOS Version
 
@@ -342,6 +367,7 @@ enum PermissionType {
   bluetooth,
   music,        // Apple Music
   siri,
+  health,       // Health data
 }
 ```
 
