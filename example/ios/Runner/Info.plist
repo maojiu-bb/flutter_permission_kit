@@ -77,5 +77,7 @@
 	<string>We need access to your health data to provide personalized fitness insights and track your wellness goals</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>We need to write workout and health data to the Health app to keep your health information up to date</string>
+	<key>NSMotionUsageDescription</key>
+	<string>We need access to your motion and fitness data to track your daily activities, count steps, and provide fitness insights</string>
 </dict>
 </plist>

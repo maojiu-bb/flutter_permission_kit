@@ -332,9 +332,78 @@ enum PermissionType: String, CaseIterable {
     /// to some but not all requested health data types.
     case health
     
+    /// Motion and fitness data access permission
+    ///
+    /// Allows the app to access motion and fitness data from the device's
+    /// sensors, including accelerometer, gyroscope, step counting, and
+    /// activity recognition. Essential for fitness tracking, health monitoring,
+    /// and motion-based features.
+    ///
+    /// iOS Requirements:
+    /// - Info.plist key: NSMotionUsageDescription
+    /// - System permission: CMMotionActivityManager authorization
+    /// - User-facing permission dialog: "Allow [App] to access your motion and fitness data?"
+    /// - Framework: CoreMotion (CMMotionManager, CMPedometer, CMMotionActivityManager)
+    ///
+    /// Motion data types:
+    /// - Raw sensor data: Accelerometer, gyroscope, magnetometer readings
+    /// - Processed data: Device motion, attitude, rotation rate
+    /// - Activity data: Walking, running, cycling, driving, stationary
+    /// - Pedometer data: Step count, distance, floors climbed, pace
+    /// - Fitness data: Active calories, workout sessions, activity levels
+    ///
+    /// Common use cases:
+    /// - Step counting and distance tracking
+    /// - Activity recognition and fitness monitoring
+    /// - Workout recording and performance analysis
+    /// - Fall detection and health alerts
+    /// - Motion-based gaming and interactive features
+    /// - Gesture recognition and device orientation
+    /// - Calorie estimation and energy expenditure
+    /// - Sleep pattern analysis through motion patterns
+    /// - Navigation and indoor positioning
+    /// - Accessibility features based on device movement
+    ///
+    /// Privacy considerations:
+    /// - Motion data can reveal detailed patterns about user activities and locations
+    /// - Request only necessary motion data types for your app's functionality
+    /// - Provide clear explanation of motion data usage and user benefits
+    /// - Implement proper data security, encryption, and access controls
+    /// - Respect user's choice to deny or limit motion access
+    /// - Consider battery impact of continuous motion monitoring
+    /// - Be transparent about data retention and sharing policies
+    ///
+    /// Technical considerations:
+    /// - Motion services availability varies by device model and capabilities
+    /// - Some features require specific hardware sensors (e.g., barometer for altitude)
+    /// - Background motion tracking requires proper app capabilities and entitlements
+    /// - Motion data accuracy varies by device orientation and usage patterns
+    /// - Consider calibration requirements for precise measurements
+    /// - Handle gracefully when motion services are unavailable or restricted
+    /// - Optimize for battery life when using continuous motion monitoring
+    ///
+    /// Example Info.plist entry:
+    /// ```xml
+    /// <key>NSMotionUsageDescription</key>
+    /// <string>This app uses motion data to track your daily activities, count steps, and provide fitness insights.</string>
+    /// ```
+    ///
+    /// Code example:
+    /// ```swift
+    /// let motionManager = CMMotionActivityManager()
+    /// motionManager.queryActivityStarting(from: startDate, to: endDate, to: queue) { activities, error in
+    ///     // Handle motion activity data
+    /// }
+    /// ```
+    ///
+    /// Note: Motion data access is particularly sensitive as it can reveal
+    /// detailed information about user behavior, daily routines, and location
+    /// patterns. Always request permission with clear justification and provide
+    /// meaningful value to users in exchange for this sensitive data access.
+    case motion
+    
     // Additional permission types can be added here as needed
     // Examples that might be implemented in future versions:
-    // - motion: Motion and fitness data (NSMotionUsageDescription)
     // - faceID: Face ID authentication (NSFaceIDUsageDescription)
     // - touchID: Touch ID authentication
     

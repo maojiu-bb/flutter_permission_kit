@@ -231,6 +231,10 @@ class CorePermissionKit {
             case .health:
                 let healthKit = HealthPermissionKit()
                 PermissionKitManager.shared.registerKit(healthKit)
+                
+            case .motion:
+                let motionKit = MotionPermissionKit()
+                PermissionKitManager.shared.registerKit(motionKit)
             }
         }
         
@@ -309,6 +313,10 @@ class CorePermissionKit {
         // Register health permission kit for health data access
         let healthKit = HealthPermissionKit()
         PermissionKitManager.shared.registerKit(healthKit)
+        
+        // Register motion permission kit for motion and fitness data access
+        let motionKit = MotionPermissionKit()
+        PermissionKitManager.shared.registerKit(motionKit)
 
         
         // TODO: Register more permission kit

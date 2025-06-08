@@ -106,6 +106,11 @@ class _MyAppState extends State<MyApp> {
                 description: 'Access to your health data',
                 type: PermissionType.health,
               ),
+              Permission(
+                name: 'Motion & Fitness',
+                description: 'Access to your motion and fitness data',
+                type: PermissionType.motion,
+              ),
             ],
           ),
         );

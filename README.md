@@ -17,7 +17,7 @@
 
 Flutter Permission Kit provides a beautiful, native iOS permission management solution with:
 
-- 🎯 **13 iOS Permission Types**: Complete coverage of iOS system permissions
+- 🎯 **14 iOS Permission Types**: Complete coverage of iOS system permissions
 - 🎨 **Customizable UI**: Alert and Modal display modes with full customization
 - 🔧 **Unified API**: Single initialization method for all permission types
 - 📱 **Native iOS Design**: Seamless integration with iOS design patterns
@@ -43,6 +43,7 @@ Flutter Permission Kit provides a beautiful, native iOS permission management so
 | **Apple Music**        | Music library access      | MediaPlayer             |
 | **Siri**               | Siri integration          | Intents                 |
 | **Health**             | Health data access        | HealthKit               |
+| **Motion & Fitness**   | Motion and fitness data   | CoreMotion              |
 
 ## 🎨 UI Showcase
 
@@ -66,7 +67,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_permission_kit: ^1.1.0
+  flutter_permission_kit: ^1.2.0
 ```
 
 Then run:
@@ -135,6 +136,10 @@ Add the required permission descriptions to your `ios/Runner/Info.plist`:
     <string>We need access to your health data to provide personalized fitness insights</string>
     <key>NSHealthUpdateUsageDescription</key>
     <string>We need to write workout data to keep your health information up to date</string>
+
+    <!-- Motion Permission -->
+    <key>NSMotionUsageDescription</key>
+    <string>We need access to your motion and fitness data to track your daily activities</string>
 ```
 
 #### Siri Special Configuration
@@ -369,6 +374,7 @@ enum PermissionType {
   music,        // Apple Music
   siri,
   health,       // Health data
+  motion,       // Motion and fitness data
 }
 ```
 

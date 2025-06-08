@@ -209,6 +209,48 @@ enum PermissionType {
   ///
   siri,
 
+  /// Motion and fitness data access permission
+  ///
+  /// This permission allows the app to access motion and fitness data
+  /// from the device's sensors, including accelerometer, gyroscope,
+  /// step counting, and activity recognition. Essential for fitness
+  /// tracking, health monitoring, and motion-based features.
+  ///
+  /// iOS Requirements:
+  /// - Info.plist key: NSMotionUsageDescription
+  /// - Framework: CoreMotion (CMMotionManager, CMPedometer, CMMotionActivityManager)
+  /// - User dialog: "Allow [App] to access your motion and fitness data?"
+  ///
+  /// Common use cases:
+  /// - Step counting and distance tracking
+  /// - Activity recognition (walking, running, cycling, driving)
+  /// - Fitness tracking and workout recording
+  /// - Fall detection and health monitoring
+  /// - Motion-based gaming and interactive features
+  /// - Gesture recognition and device orientation
+  /// - Calorie estimation and energy expenditure
+  /// - Sleep pattern analysis through motion data
+  ///
+  /// Privacy considerations:
+  /// - Motion data can reveal detailed information about user activities
+  /// - Request only necessary motion data types for your app's functionality
+  /// - Provide clear explanation of motion data usage and benefits
+  /// - Implement proper data security and access controls
+  /// - Respect user's choice to deny or limit motion access
+  /// - Consider battery impact of continuous motion monitoring
+  ///
+  /// Technical considerations:
+  /// - Some motion features require device with specific sensors
+  /// - Background motion tracking requires proper app capabilities
+  /// - Motion data availability varies by device model and iOS version
+  /// - Consider accuracy limitations and calibration needs
+  /// - Handle cases where motion services are unavailable
+  ///
+  /// Note: Motion data access is particularly sensitive as it can reveal
+  /// detailed patterns about user behavior, location, and activities.
+  /// Always request permission with clear justification and use cases.
+  motion,
+
   /// Health data access permission for reading and writing health information
   ///
   /// This permission allows the app to access health data stored in the

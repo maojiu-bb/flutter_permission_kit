@@ -1,3 +1,9 @@
+## 1.2.0
+
+### ✨ New Features
+
+- **MotionPermissionKit**: Added motion and fitness data permission management using Apple's CoreMotion framework
+
 ## 1.1.0
 
 ### ✨ New Features
