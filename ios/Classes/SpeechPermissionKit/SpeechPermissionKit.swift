@@ -32,10 +32,11 @@ class SpeechPermissionKit: ObservableObject, PermissionKitProtocol {
     }
     
     /// Requests speech recognition access permission from the user
-    func requestPermission() {
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)? = nil) {
         SFSpeechRecognizer.requestAuthorization { granted in
             DispatchQueue.main.async {
                 self.refreshSpeechPermission()
+                completion?(self.permissionStatus)
             }
         }
     }

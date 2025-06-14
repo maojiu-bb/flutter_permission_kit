@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_permission_kit/core/flutter_permission_kit_config.dart';
+import 'package:flutter_permission_kit/enums/authoricate_status.dart';
+import 'package:flutter_permission_kit/enums/permission_type.dart';
 
 /// Platform channel communication handler for Flutter Permission Kit
 ///
@@ -102,5 +104,19 @@ class FlutterPermissionKitChannel {
   static Future<bool> init(FlutterPermissionKitConfig config) async {
     final res = await _channel.invokeMethod('init', config.toJson());
     return res;
+  }
+
+  /// Request a permission without any UI.
+  ///
+  /// This method is used to request a permission without any UI. It is used
+  /// to request a permission that does not require any UI.
+  ///
+  /// Parameters:
+  /// - [permission]: The permission to request
+  static Future<AuthorizationStatus> request(PermissionType permission) async {
+    final res = await _channel.invokeMethod('request', {
+      'permission': permission.name,
+    });
+    return AuthorizationStatus.fromRawValue(res);
   }
 }

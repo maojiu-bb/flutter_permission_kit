@@ -117,4 +117,23 @@ enum AuthorizationStatus {
      * APIs will show the system permission dialog to the user.
      */
     case notDetermined
+    
+    /**
+     * To rawValue
+     * 
+     * This method is used to convert the authorization status to a raw value.
+     * It is used to convert the authorization status to a raw value.
+     * 
+     * Parameters:
+     * - [self]: The authorization status to convert
+     * 
+     */
+    func toRawValue() -> String {
+        switch self {
+        case .granted: return "granted"
+        case .denied: return "denied"
+        case .limited: return "limited"
+        case .notDetermined: return "notDetermined"
+        }
+    }
 }

@@ -22,11 +22,12 @@ class ContactsPermissionKit: ObservableObject, PermissionKitProtocol {
     }
     
     /// Requests contacts access permission from the user
-    func requestPermission() {
+    func requestPermission(completion: ( (AuthorizationStatus) -> Void)? = nil) {
         let contactStore = CNContactStore()
         contactStore.requestAccess(for: .contacts) { granted, error in
             DispatchQueue.main.async {
                 self.status = CNContactStore.authorizationStatus(for: .contacts)
+                completion?(self.permissionStatus)
             }
         }
     }

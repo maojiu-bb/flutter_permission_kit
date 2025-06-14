@@ -102,7 +102,7 @@ protocol PermissionKitProtocol: ObservableObject {
     ///     }
     /// }
     /// ```
-    func requestPermission()
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)?)
     
     /// Creates a SwiftUI view component for this permission
     ///

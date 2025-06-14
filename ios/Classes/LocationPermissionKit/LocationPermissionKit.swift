@@ -40,8 +40,9 @@ class LocationPermissionKit: NSObject, ObservableObject, PermissionKitProtocol, 
     }
     
     /// Requests location access permission from the user (when-in-use)
-    func requestPermission() {
+    func requestPermission(completion: ( (AuthorizationStatus) -> Void)? = nil) {
         locationManager?.requestWhenInUseAuthorization()
+        completion?(self.permissionStatus)
     }
     
     /// Converts CoreLocation authorization status to common AuthorizationStatus

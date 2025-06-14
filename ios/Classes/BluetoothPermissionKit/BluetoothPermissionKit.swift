@@ -24,8 +24,9 @@ class BluetoothPermissionKit: NSObject, ObservableObject, PermissionKitProtocol,
         self.status = CBCentralManager.authorization
     }
     
-    func requestPermission() {
+    func requestPermission(completion: ( (AuthorizationStatus) -> Void)? = nil) {
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        completion?(self.permissionStatus)
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {

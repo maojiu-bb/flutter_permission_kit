@@ -35,21 +35,21 @@ import SwiftUI
  * **On-Demand Registration Architecture** (New in v2.0):
  * Previous versions registered all available permission kits during initialization, regardless
  * of whether they would be used. The new on-demand approach offers several benefits:
- * 
+ *
  * **Benefits**:
  * - **Memory Efficiency**: Only creates permission kit instances that will actually be used
  * - **Faster Startup**: Reduces initialization time by avoiding unnecessary object creation
  * - **Configuration-Driven**: Adapts to actual usage requirements automatically
  * - **Resource Optimization**: Prevents instantiation of unused permission handlers
  * - **Scalability**: Better performance as more permission types are added to the system
- * 
+ *
  * **How On-Demand Registration Works**:
  * 1. Flutter layer sends configuration specifying required permission types
  * 2. CorePermissionKit parses configuration and identifies required permission types
  * 3. Only the permission kits for requested types are instantiated and registered
  * 4. Subsequent permission checks and UI generation use only the registered kits
  * 5. Multiple configuration calls reuse already-registered kits (avoid duplicate registration)
- * 
+ *
  * **Example**: If your app only requests camera and photos permissions, only CameraPermissionKit
  * and PhotosPermissionKit will be created. LocationPermissionKit, MicrophonePermissionKit, etc.
  * will not be instantiated at all, saving memory and initialization time.
@@ -317,7 +317,7 @@ class CorePermissionKit {
         // Register motion permission kit for motion and fitness data access
         let motionKit = MotionPermissionKit()
         PermissionKitManager.shared.registerKit(motionKit)
-
+        
         
         // TODO: Register more permission kit
     }
@@ -374,6 +374,54 @@ class CorePermissionKit {
             // Present permission request UI and return result
             let showResult = self.showCorePermissionView()
             result(showResult)
+        }
+    }
+    
+    /**
+     * Requests a specific permission from the user
+     *
+     * This method handles the request for a specific permission type. It parses
+     * the permission type from the Flutter method call, ensures the permission
+     * kit is available, requests the permission, and returns the authorization status.
+     *
+     * - Parameters:
+     *   - call: FlutterMethodCall containing permission type from Flutter
+     *   - result: Callback to return authorization status to Flutter layer
+     *
+     * **Return Values**:
+     * - `AuthorizationStatus.denied`: Permission not available or denied
+     * - `AuthorizationStatus.authorized`: Permission granted
+     * - `AuthorizationStatus.notDetermined`: Permission not yet determined
+     * - `AuthorizationStatus.restricted`: Permission restricted by system policies
+     */
+    func requestPermission(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let permission = PermissionType(rawValue: args["permission"] as? String ?? "") else {
+            result(AuthorizationStatus.denied.toRawValue())
+            return
+        }
+        
+        // Get the permission kit for the requested permission type
+        var kit = PermissionKitManager.shared.getKit(for: permission)
+        
+        // If no kit is registered, register it
+        if kit == nil {
+            let permissionData = ["type": permission.rawValue]
+            if let item = PermissionItem(from: permissionData) {
+                self.registerRequiredPermissionKits(for: [item])
+                kit = PermissionKitManager.shared.getKit(for: permission)
+            }
+        }
+        
+        // Ensure we have a valid kit
+        guard let permissionKit = kit else {
+            result(AuthorizationStatus.denied.toRawValue())
+            return
+        }
+        
+        // Request permission and return status
+        permissionKit.requestPermission { status in
+            result(status.toRawValue())
         }
     }
     

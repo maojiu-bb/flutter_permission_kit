@@ -35,5 +35,14 @@ enum AuthorizationStatus {
   /// The user has not yet been asked for this permission, or the permission
   /// request is still pending. This is the initial state for most iOS permissions
   /// before any user interaction has occurred through the system permission dialog.
-  notDetermined,
+  notDetermined;
+
+  /// Creates an [AuthorizationStatus] from a raw string value.
+  /// Returns [AuthorizationStatus.denied] if the value doesn't match.
+  static AuthorizationStatus fromRawValue(String rawValue) {
+    return AuthorizationStatus.values.firstWhere(
+      (e) => e.name == rawValue,
+      orElse: () => AuthorizationStatus.denied,
+    );
+  }
 }

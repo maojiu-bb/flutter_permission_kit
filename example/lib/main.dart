@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_permission_kit/core/flutter_permission_kit_config.dart';
 import 'package:flutter_permission_kit/core/permission.dart';
+import 'package:flutter_permission_kit/enums/authoricate_status.dart';
 import 'package:flutter_permission_kit/enums/display_type.dart';
 import 'package:flutter_permission_kit/enums/permission_type.dart';
 import 'package:flutter_permission_kit/flutter_permission_kit.dart';
@@ -106,11 +107,11 @@ class _MyAppState extends State<MyApp> {
                 description: 'Access to your health data',
                 type: PermissionType.health,
               ),
-              Permission(
-                name: 'Motion & Fitness',
-                description: 'Access to your motion and fitness data',
-                type: PermissionType.motion,
-              ),
+              // Permission(
+              //   name: 'Motion & Fitness',
+              //   description: 'Access to your motion and fitness data',
+              //   type: PermissionType.motion,
+              // ),
             ],
           ),
         );
@@ -119,12 +120,38 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  AuthorizationStatus motionPermissionStatus =
+      AuthorizationStatus.notDetermined;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('Plugin example app')),
-        body: Center(child: Text('Running on: ios\n')),
+        body: Center(
+          child: Column(
+            children: [
+              Text('Running on: ios\n'),
+              SizedBox(height: 10),
+              Text(
+                "Motion & Fitness Permission: ${motionPermissionStatus.name}",
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () async {
+                  final status = await FlutterPermissionKit.request(
+                    PermissionType.motion,
+                  );
+                  debugPrint("[FlutterPermissionKit.request: $status]");
+                  setState(() {
+                    motionPermissionStatus = status;
+                  });
+                },
+                child: Text("Request Motion & Fitness Permission"),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -18,10 +18,11 @@ class TrackingPermissionKit: ObservableObject, PermissionKitProtocol {
         return .tracking
     }
     
-    func requestPermission() {
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)? = nil) {
         ATTrackingManager.requestTrackingAuthorization { status in
             DispatchQueue.main.async {
                 self.status = status
+                completion?(self.permissionStatus)
             }
         }
     }

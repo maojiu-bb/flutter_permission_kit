@@ -126,6 +126,11 @@ public class FlutterPermissionKitPlugin: NSObject, FlutterPlugin {
             // Initialize the permission kit with the provided configuration
             // Delegate to CorePermissionKit for actual implementation
             CorePermissionKit.share.initPermissionKit(call, result: result)
+
+        case "request":
+            // Request the permission with the provided type
+            // Delegate to CorePermissionKit for actual implementation
+            CorePermissionKit.share.requestPermission(call, result: result)
             
         default:
             // Return "not implemented" for unknown method calls

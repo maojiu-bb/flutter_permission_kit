@@ -23,7 +23,7 @@ class ReminderPermissionKit: ObservableObject, PermissionKitProtocol {
     }
     
     /// Requests calendar access permission from the user
-    func requestPermission() {
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)? = nil) {
         let eventStore = EKEventStore()
         eventStore.requestAccess(to: .reminder) { granted, error in
             DispatchQueue.main.async {
@@ -32,6 +32,7 @@ class ReminderPermissionKit: ObservableObject, PermissionKitProtocol {
                     return
                 }
                 self.status = granted ? .authorized : .denied
+                completion?(self.permissionStatus)
             }
         }
     }

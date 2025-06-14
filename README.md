@@ -67,7 +67,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_permission_kit: ^1.2.1
+  flutter_permission_kit: ^1.3.0
 ```
 
 Then run:
@@ -199,7 +199,16 @@ IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 
 ## 📖 Usage
 
-### Basic Implementation
+Flutter Permission Kit offers two ways to handle permissions:
+
+1. **UI-Based Permission Requests**: Display a beautiful native UI to request multiple permissions at once
+2. **Direct Permission Requests**: Request individual permissions without any UI (useful for programmatic access)
+
+### UI-Based Permission Requests
+
+Use this approach when you want to present a user-friendly interface that explains why permissions are needed.
+
+#### Basic Implementation
 
 ```dart
 import 'package:flutter/material.dart';
@@ -297,6 +306,41 @@ FlutterPermissionKitConfig(
 )
 ```
 
+### Direct Permission Requests
+
+**New in v1.3.1+** - Request individual permissions directly without any UI.
+
+```dart
+import 'package:flutter_permission_kit/flutter_permission_kit.dart';
+import 'package:flutter_permission_kit/enums/permission_type.dart';
+import 'package:flutter_permission_kit/enums/authoricate_status.dart';
+
+// Request camera permission directly
+Future<void> requestCameraPermission() async {
+  final status = await FlutterPermissionKit.request(PermissionType.camera);
+
+  if (status == AuthorizationStatus.granted) {
+    print('Camera permission granted');
+    // Proceed with camera functionality
+  } else {
+    print('Camera permission denied');
+    // Handle denied permission
+  }
+}
+
+// Check if permission is already granted
+Future<bool> isCameraPermissionGranted() async {
+  final status = await FlutterPermissionKit.request(PermissionType.camera);
+  return status == AuthorizationStatus.granted;
+}
+```
+
+**When to use:**
+
+- Request permissions at specific moments in your app
+- Check permission status without showing UI
+- Build custom permission flows
+
 ## 🔍 API Reference
 
 ### FlutterPermissionKit
@@ -307,7 +351,7 @@ The main class for managing permissions.
 
 ##### `init({required FlutterPermissionKitConfig config})`
 
-Initializes the permission kit with the provided configuration.
+Initializes the permission kit with the provided configuration for UI-based permission requests.
 
 **Parameters:**
 
@@ -316,6 +360,39 @@ Initializes the permission kit with the provided configuration.
 **Returns:**
 
 - `Future<bool>`: `true` if initialization was successful, `false` otherwise
+
+**Example:**
+
+```dart
+final success = await FlutterPermissionKit.init(
+  config: FlutterPermissionKitConfig(
+    displayType: DisplayType.modal,
+    displayTitle: 'App Permissions',
+    // ... other configuration
+  ),
+);
+```
+
+##### `request(PermissionType permission)` ⭐ New
+
+Requests a single permission directly without any UI.
+
+**Parameters:**
+
+- `permission`: The permission type to request
+
+**Returns:**
+
+- `Future<AuthorizationStatus>`: The permission status
+
+**Example:**
+
+```dart
+final status = await FlutterPermissionKit.request(PermissionType.camera);
+if (status == AuthorizationStatus.granted) {
+  // Permission granted
+}
+```
 
 ### FlutterPermissionKitConfig
 

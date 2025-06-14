@@ -112,11 +112,12 @@ class PhotosPermissionKit: ObservableObject, PermissionKitProtocol {
      * **Thread Safety**: Updates the status property on the main thread to ensure
      * proper UI updates and SwiftUI state synchronization.
      */
-    func requestPermission() {
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)? = nil) {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { newStatus in
             DispatchQueue.main.async {
                 // Update status on main thread for UI consistency
                 self.status = newStatus
+                completion?(self.permissionStatus)
             }
         }
     }

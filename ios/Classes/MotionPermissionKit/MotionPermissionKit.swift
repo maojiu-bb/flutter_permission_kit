@@ -74,7 +74,7 @@ class MotionPermissionKit: ObservableObject, PermissionKitProtocol {
      * rather than a dedicated permission request method, as this is the standard
      * approach for motion activity permissions in iOS.
      */
-    func requestPermission() {
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)? = nil) {
         // Create a date range for the query (using a small recent range to minimize data processing)
         let endDate = Date()
         let startDate = Calendar.current.date(byAdding: .minute, value: -1, to: endDate) ?? endDate
@@ -85,6 +85,7 @@ class MotionPermissionKit: ObservableObject, PermissionKitProtocol {
                 // Update the status after permission request completes
                 // This ensures UI updates happen on the main thread
                 self?.status = CMMotionActivityManager.authorizationStatus()
+                completion?(self?.permissionStatus ?? .denied)
             }
         }
     }

@@ -19,10 +19,11 @@ class SiriPermissionKit: ObservableObject, PermissionKitProtocol {
         return .siri
     }
     
-    func requestPermission() {
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)? = nil) {
         INPreferences.requestSiriAuthorization { newStatus in
             DispatchQueue.main.async {
                 self.status = newStatus
+                completion?(self.permissionStatus)
             }
         }
     }

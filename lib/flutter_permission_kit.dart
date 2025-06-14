@@ -1,5 +1,7 @@
 import 'package:flutter_permission_kit/core/flutter_permission_kit_channel.dart';
 import 'package:flutter_permission_kit/core/flutter_permission_kit_config.dart';
+import 'package:flutter_permission_kit/enums/authoricate_status.dart';
+import 'package:flutter_permission_kit/enums/permission_type.dart';
 
 /// Main entry point for Flutter Permission Kit functionality
 ///
@@ -150,6 +152,18 @@ class FlutterPermissionKit {
   ///   calling init() again with a new configuration
   static Future<bool> init({required FlutterPermissionKitConfig config}) async {
     final res = await FlutterPermissionKitChannel.init(config);
+    return res;
+  }
+
+  /// Request a permission without any UI.
+  ///
+  /// This method is used to request a permission without any UI. It is used
+  /// to request a permission that does not require any UI.
+  ///
+  /// Parameters:
+  /// - [permission]: The permission to request
+  static Future<AuthorizationStatus> request(PermissionType permission) async {
+    final res = await FlutterPermissionKitChannel.request(permission);
     return res;
   }
 }

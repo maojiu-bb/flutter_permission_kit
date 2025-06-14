@@ -22,10 +22,11 @@ class MusicPermissionKit: ObservableObject, PermissionKitProtocol {
     }
     
     /// Requests Apple Music access permission from the user
-    func requestPermission() {
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)? = nil) {
         SKCloudServiceController.requestAuthorization { newStatus in
             DispatchQueue.main.async {
                 self.status = newStatus
+                completion?(self.permissionStatus)
             }
         }
     }

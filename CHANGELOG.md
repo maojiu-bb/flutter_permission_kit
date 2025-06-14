@@ -1,3 +1,12 @@
+## 1.3.0
+
+### ✨ New Features
+
+- **Direct Permission Request**: Added `FlutterPermissionKit.request()` method for requesting individual permissions without displaying any UI
+  - Perfect for checking permission status silently
+  - Enables custom permission flows and programmatic permission management
+  - Returns `AuthorizationStatus` for fine-grained permission state handling
+
 ## 1.2.1
 
 ### 🐛 Bug Fixes

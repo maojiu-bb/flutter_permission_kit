@@ -22,10 +22,11 @@ class MicrophonePermissionKit: ObservableObject, PermissionKitProtocol {
     }
     
     /// Requests microphone access permission from the user
-    func requestPermission() {
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)? = nil) {
         AVCaptureDevice.requestAccess(for: .audio) { granted in
             DispatchQueue.main.async {
                 self.status = AVCaptureDevice.authorizationStatus(for: .audio)
+                completion?(self.permissionStatus)
             }
         }
     }

@@ -37,13 +37,14 @@ class NotificationPermissionKit: ObservableObject, PermissionKitProtocol {
     
     /// Requests notification access permission from the user
     /// Requests alert, badge, and sound notification options
-    func requestPermission() {
+    func requestPermission(completion: ((AuthorizationStatus) -> Void)? = nil) {
         UNUserNotificationCenter
             .current()
             .requestAuthorization(
                 options: [.alert, .badge, .sound]
             ) { granted, error in
                 self.refreshNotificationStatus()
+                completion?(self.permissionStatus)
             }
     }
     
