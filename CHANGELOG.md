@@ -1,3 +1,9 @@
+## 1.4.0
+
+### ✨ New Features
+
+- **Permission Convenience Methods**: Added static methods like `Permission.camera`, `Permission.photos` for quick setup
+
 ## 1.3.0
 
 ### ✨ New Features

@@ -20,6 +20,7 @@ Flutter Permission Kit provides a beautiful, native iOS permission management so
 - 🎯 **14 iOS Permission Types**: Complete coverage of iOS system permissions
 - 🎨 **Customizable UI**: Alert and Modal display modes with full customization
 - 🔧 **Unified API**: Single initialization method for all permission types
+- 🚀 **Convenience Methods**: Static methods for quick permission setup (`Permission.camera`, `Permission.photos`, etc.)
 - 📱 **Native iOS Design**: Seamless integration with iOS design patterns
 - 🌙 **Dark Mode Support**: Automatic adaptation to system theme
 - 🛡️ **Type-Safe**: Comprehensive enum definitions and error handling
@@ -67,7 +68,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_permission_kit: ^1.3.0
+  flutter_permission_kit: ^1.4.0
 ```
 
 Then run:
@@ -292,6 +293,25 @@ class _MyAppState extends State<MyApp> {
 }
 ```
 
+#### 🚀 Quick Setup with Convenience Methods ⭐ New
+
+**New in v1.4.0+** - Use static convenience methods for simpler permission configuration:
+
+```dart
+FlutterPermissionKitConfig(
+  displayType: DisplayType.alert,
+  displayTitle: 'Required Permissions',
+  permissions: [
+    Permission.camera,      // Simple one-line setup
+    Permission.photos,      // Uses default name and description
+    Permission.microphone,
+    Permission.location,
+  ],
+)
+```
+
+Available static methods: `Permission.camera`, `Permission.photos`, `Permission.microphone`, `Permission.speech`, `Permission.contacts`, `Permission.notification`, `Permission.location`, `Permission.calendar`, `Permission.tracking`, `Permission.reminder`, `Permission.bluetooth`, `Permission.music`, `Permission.siri`, `Permission.health`, `Permission.motion`
+
 ### Advanced Configuration
 
 ```dart
@@ -419,6 +439,13 @@ Represents a single permission request.
 | `name`        | `String?`        | Display name for the permission           | Optional |
 | `description` | `String?`        | Description of why permission is needed   | Optional |
 | `type`        | `PermissionType` | Type of permission (camera, photos, etc.) | Required |
+
+#### Static Methods ⭐ New
+
+```dart
+Permission.camera, Permission.photos, Permission.microphone, etc.
+// Creates permission with null name and description
+```
 
 ### DisplayType
 

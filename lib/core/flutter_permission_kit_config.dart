@@ -10,6 +10,7 @@ import 'package:flutter_permission_kit/enums/display_type.dart';
 ///
 /// Example usage:
 /// ```dart
+/// // Using custom permission names and descriptions
 /// final config = FlutterPermissionKitConfig(
 ///   permissions: [
 ///     Permission(
@@ -20,7 +21,17 @@ import 'package:flutter_permission_kit/enums/display_type.dart';
 ///   ],
 ///   displayType: DisplayType.modal,
 ///   displayTitle: 'App Permissions',
-///   primaryColor: Colors.blue,
+/// );
+///
+/// // Using convenient static methods (name and description will be null)
+/// final quickConfig = FlutterPermissionKitConfig(
+///   permissions: [
+///     Permission.camera,
+///     Permission.photos,
+///     Permission.microphone,
+///   ],
+///   displayType: DisplayType.alert,
+///   displayTitle: 'Required Permissions',
 /// );
 /// ```
 class FlutterPermissionKitConfig {

@@ -102,11 +102,12 @@ class _MyAppState extends State<MyApp> {
                 description: 'Access to your Siri',
                 type: PermissionType.siri,
               ),
-              Permission(
-                name: 'Health Data',
-                description: 'Access to your health data',
-                type: PermissionType.health,
-              ),
+              // Permission(
+              //   name: 'Health Data',
+              //   description: 'Access to your health data',
+              //   type: PermissionType.health,
+              // ),
+              Permission.health,
               // Permission(
               //   name: 'Motion & Fitness',
               //   description: 'Access to your motion and fitness data',
