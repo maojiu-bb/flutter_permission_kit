@@ -1,3 +1,7 @@
+## 1.4.1
+
+- Fix some bugs
+
 ## 1.4.0
 
 ### ✨ New Features

@@ -46,6 +46,12 @@ class CalendarPermissionKit: ObservableObject, PermissionKitProtocol {
             return .denied
         case .notDetermined:
             return .notDetermined
+        case .restricted:
+            return .limited
+        case .fullAccess:
+            return .granted
+        case .writeOnly:
+            return .limited
         @unknown default:
             // Handle any future unknown authorization status cases
             return .notDetermined

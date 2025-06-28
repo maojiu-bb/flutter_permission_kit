@@ -14,7 +14,7 @@ import CoreLocation
 @available(iOS 15.0, *)
 class LocationPermissionKit: NSObject, ObservableObject, PermissionKitProtocol, CLLocationManagerDelegate {
     /// Current location authorization status from CoreLocation
-    @Published var status: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
+    @Published var status: CLAuthorizationStatus = .notDetermined
     
     /// Core Location manager instance for handling location permissions
     private var locationManager: CLLocationManager?
@@ -29,13 +29,14 @@ class LocationPermissionKit: NSObject, ObservableObject, PermissionKitProtocol, 
         super.init()
         locationManager = CLLocationManager()
         locationManager?.delegate = self
+        status = locationManager?.authorizationStatus ?? .notDetermined
         refreshLocationStatus()
     }
     
     /// Updates the current location permission status
     func refreshLocationStatus() {
         DispatchQueue.main.async {
-            self.status = CLLocationManager.authorizationStatus()
+            self.status = self.locationManager?.authorizationStatus ?? .notDetermined
         }
     }
     

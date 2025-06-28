@@ -41,6 +41,8 @@ class ContactsPermissionKit: ObservableObject, PermissionKitProtocol {
             return .denied
         case .notDetermined:
             return .notDetermined
+        case .limited:
+            return .limited
         @unknown default:
             // Handle any future unknown authorization status cases
             return .notDetermined

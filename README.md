@@ -68,7 +68,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_permission_kit: ^1.4.0
+  flutter_permission_kit: ^1.4.1
 ```
 
 Then run:
